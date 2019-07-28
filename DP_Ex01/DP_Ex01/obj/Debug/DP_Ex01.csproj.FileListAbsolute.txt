@@ -1,0 +1,10 @@
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.Properties.Resources.resources
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.csproj.GenerateResource.Cache
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.csprojResolveAssemblyReference.cache
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\bin\Debug\DP_Ex01.exe
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\bin\Debug\DP_Ex01.pdb
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\bin\Debug\Facebook.dll
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\bin\Debug\FbGraphApiWrapper.dll
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.Form1.resources
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.exe
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.pdb
