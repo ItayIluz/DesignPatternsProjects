@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using System.
 
 namespace DP_Ex01
 {
@@ -25,7 +26,7 @@ namespace DP_Ex01
 
         public void SaveToFile()
         {
-            using (Stream stream = new FileStream(@"C:\appSettings.xml:", FileMode.Append))
+            using (Stream stream = new FileStream(@"D:\appSettings.xml", FileMode.Create))
             {
                 XmlSerializer serializer = new XmlSerializer(this.GetType());
                 serializer.Serialize(stream, this);
@@ -34,14 +35,18 @@ namespace DP_Ex01
 
         public static AppSettings LoadFromFile()
         {
-            AppSettings appSettings = new AppSettings();
-            if(File.Exists("@C:\appSettings.xml"))
+            AppSettings appSettings;
+            if (File.Exists(@"D:\appSettings.xml"))
             {
-                using (Stream stream = new FileStream(@"C:\appSettings.xml:", FileMode.Open))
+                using (Stream stream = new FileStream(@"D:\appSettings.xml", FileMode.Open))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
                     appSettings = serializer.Deserialize(stream) as AppSettings;
                 }
+            }
+            else
+            {
+                appSettings = new AppSettings();
             }
 
             return appSettings;
