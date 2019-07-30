@@ -13,7 +13,8 @@ namespace DP_Ex01
 {
     public partial class Form1 : Form
     {
-        private readonly string[] m_Permissions = {
+        private readonly string r_WelcomeMessage = "Hello! Please login to Facebook";
+        private readonly string[] r_Permissions = {
             "public_profile",
             "email",
             "publish_to_groups",
@@ -36,7 +37,7 @@ namespace DP_Ex01
 
         private AppSettings m_AppSettings;
         private LoginResult m_LoginResult;
-        private User m_LoggedInUser;
+        private User m_LoggedInUser = null;
 
         public Form1()
         {
@@ -49,6 +50,22 @@ namespace DP_Ex01
             this.Size = m_AppSettings.LastWindowSize;
             this.Location = m_AppSettings.LastWindowLocation;
             this.checkboxRememberMe.Checked = m_AppSettings.RememberUser;
+
+            enableTabsControlsIfUserLoggedIn();
+        }
+
+        private void enableTabsControlsIfUserLoggedIn()
+        {
+            foreach (TabPage page in tabsControl.TabPages)
+            {
+                if (page.Name != "tabLoginLogout")
+                {
+                    foreach (Control control in page.Controls)
+                    {
+                        control.Enabled = m_LoggedInUser != null;
+                    }
+                }
+            }
         }
 
         protected override void OnShown(EventArgs e)
@@ -83,12 +100,18 @@ namespace DP_Ex01
         private void loginAndInit()
         {
             /// Owner: design.patterns
-            LoginResult result = FacebookService.Login("1450160541956417", m_Permissions);
+            LoginResult result = FacebookService.Login("1450160541956417", r_Permissions);
             
             if (!string.IsNullOrEmpty(result.AccessToken))
             {
                 m_LoggedInUser = result.LoggedInUser;
                 fetchUserInfo();
+                tabLoginLogout.Text = "Logout";
+                buttonLoginLogout.Text = "Logout";
+                checkboxRememberMe.Hide();
+                labelWelcome.Text = string.Format("Hello {0}!", m_LoggedInUser.Name);
+                tabsControl.SelectedTab = tabFeed;
+                enableTabsControlsIfUserLoggedIn();
             }
             else
             {
@@ -110,9 +133,28 @@ namespace DP_Ex01
 
         }
 
-        private void buttonLogin_Click(object sender, EventArgs e)
+        private void logout()
         {
-            loginAndInit();
+            tabLoginLogout.Text = "Login";   
+            buttonLoginLogout.Text = "Login";
+            checkboxRememberMe.Show();
+            labelWelcome.Text = r_WelcomeMessage;
+            m_LoggedInUser = null;
+            m_LoginResult = null;
+            FacebookService.Logout(() => {});
+            enableTabsControlsIfUserLoggedIn();
+        }
+
+        private void buttonLoginLogout_Click(object sender, EventArgs e)
+        {
+            if(m_LoggedInUser != null)
+            {
+                logout();
+            }
+            else
+            {
+                loginAndInit();
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -120,7 +162,7 @@ namespace DP_Ex01
 
         }
 
-        private void checkboxRememberMe_CheckedChanged(object sender, EventArgs e)
+        private void buttonLoginLogout_Click_1(object sender, EventArgs e)
         {
 
         }
