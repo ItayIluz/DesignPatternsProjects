@@ -7,3 +7,4 @@ C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug
 C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.csproj.GenerateResource.Cache
 C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.exe
 C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.pdb
+C:\Users\ItayI\Documents\GitHub\DesignPatternsProjects\DP_Ex01\DP_Ex01\obj\Debug\DP_Ex01.csprojResolveAssemblyReference.cache
