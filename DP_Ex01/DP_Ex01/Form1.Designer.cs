@@ -38,9 +38,10 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(206, 12);
+            this.buttonLogin.Location = new System.Drawing.Point(275, 15);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(75, 23);
+            this.buttonLogin.Size = new System.Drawing.Size(100, 28);
             this.buttonLogin.TabIndex = 0;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
@@ -48,9 +49,10 @@
             // 
             // profilePictureBox
             // 
-            this.profilePictureBox.Location = new System.Drawing.Point(12, 12);
+            this.profilePictureBox.Location = new System.Drawing.Point(16, 15);
+            this.profilePictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.profilePictureBox.Name = "profilePictureBox";
-            this.profilePictureBox.Size = new System.Drawing.Size(100, 100);
+            this.profilePictureBox.Size = new System.Drawing.Size(133, 123);
             this.profilePictureBox.TabIndex = 1;
             this.profilePictureBox.TabStop = false;
             this.profilePictureBox.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -58,9 +60,10 @@
             // checkboxRememberMe
             // 
             this.checkboxRememberMe.AutoSize = true;
-            this.checkboxRememberMe.Location = new System.Drawing.Point(287, 16);
+            this.checkboxRememberMe.Location = new System.Drawing.Point(383, 20);
+            this.checkboxRememberMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkboxRememberMe.Name = "checkboxRememberMe";
-            this.checkboxRememberMe.Size = new System.Drawing.Size(95, 17);
+            this.checkboxRememberMe.Size = new System.Drawing.Size(122, 21);
             this.checkboxRememberMe.TabIndex = 2;
             this.checkboxRememberMe.Text = "Remember Me";
             this.checkboxRememberMe.UseVisualStyleBackColor = true;
@@ -69,33 +72,36 @@
             // labelLoggedUser
             // 
             this.labelLoggedUser.AutoSize = true;
-            this.labelLoggedUser.Location = new System.Drawing.Point(129, 17);
+            this.labelLoggedUser.Location = new System.Drawing.Point(172, 21);
+            this.labelLoggedUser.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLoggedUser.Name = "labelLoggedUser";
-            this.labelLoggedUser.Size = new System.Drawing.Size(71, 13);
+            this.labelLoggedUser.Size = new System.Drawing.Size(94, 17);
             this.labelLoggedUser.TabIndex = 3;
             this.labelLoggedUser.Text = "Logged User:";
             // 
             // labelLoggedUserName
             // 
             this.labelLoggedUserName.AutoSize = true;
-            this.labelLoggedUserName.Location = new System.Drawing.Point(207, 16);
+            this.labelLoggedUserName.Location = new System.Drawing.Point(276, 20);
+            this.labelLoggedUserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLoggedUserName.Name = "labelLoggedUserName";
-            this.labelLoggedUserName.Size = new System.Drawing.Size(0, 13);
+            this.labelLoggedUserName.Size = new System.Drawing.Size(0, 17);
             this.labelLoggedUserName.TabIndex = 4;
             this.labelLoggedUserName.Visible = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1125, 628);
+            this.ClientSize = new System.Drawing.Size(1500, 773);
             this.Controls.Add(this.labelLoggedUserName);
             this.Controls.Add(this.labelLoggedUser);
             this.Controls.Add(this.checkboxRememberMe);
             this.Controls.Add(this.profilePictureBox);
             this.Controls.Add(this.buttonLogin);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Facebook App";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).EndInit();
             this.ResumeLayout(false);
