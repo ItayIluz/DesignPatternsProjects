@@ -46,7 +46,6 @@ namespace DP_Ex01
 
             this.StartPosition = FormStartPosition.Manual;
 
-            Console.WriteLine(m_AppSettings.LastWindowLocation);
             this.Size = m_AppSettings.LastWindowSize;
             this.Location = m_AppSettings.LastWindowLocation;
             this.checkboxRememberMe.Checked = m_AppSettings.RememberUser;

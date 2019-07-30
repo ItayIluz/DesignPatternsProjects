@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
-using System.
 
 namespace DP_Ex01
 {
@@ -35,7 +30,7 @@ namespace DP_Ex01
 
         public static AppSettings LoadFromFile()
         {
-            AppSettings appSettings;
+            AppSettings appSettings = new AppSettings();
             if (File.Exists(@"D:\appSettings.xml"))
             {
                 using (Stream stream = new FileStream(@"D:\appSettings.xml", FileMode.Open))
@@ -43,10 +38,6 @@ namespace DP_Ex01
                     XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
                     appSettings = serializer.Deserialize(stream) as AppSettings;
                 }
-            }
-            else
-            {
-                appSettings = new AppSettings();
             }
 
             return appSettings;
