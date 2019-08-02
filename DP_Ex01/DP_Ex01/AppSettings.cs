@@ -10,6 +10,7 @@ namespace DP_Ex01
         public Size LastWindowSize { get; set; }
         public bool RememberUser { get; set; }
         public string LastAccessToken { get; set; }
+        private static AppSettings s_Instance;
 
         private AppSettings()
         {
@@ -19,18 +20,19 @@ namespace DP_Ex01
             LastAccessToken = null;
         }
 
-        public void SaveToFile()
+        public static AppSettings GetInstance()
         {
-            using (Stream stream = new FileStream(@"D:\appSettings.xml", FileMode.Create))
+            if (s_Instance == null)
             {
-                XmlSerializer serializer = new XmlSerializer(this.GetType());
-                serializer.Serialize(stream, this);
+                s_Instance = new AppSettings();
             }
+
+            return s_Instance;
         }
 
         public static AppSettings LoadFromFile()
         {
-            AppSettings appSettings = new AppSettings();
+            AppSettings appSettings = GetInstance();
             if (File.Exists(@"D:\appSettings.xml"))
             {
                 using (Stream stream = new FileStream(@"D:\appSettings.xml", FileMode.Open))
@@ -42,5 +44,14 @@ namespace DP_Ex01
 
             return appSettings;
         }
+
+        public void SaveToFile()
+        {
+            using (Stream stream = new FileStream(@"D:\appSettings.xml", FileMode.Create))
+            {
+                XmlSerializer serializer = new XmlSerializer(this.GetType());
+                serializer.Serialize(stream, this);
+            }
+        }      
     }
 }
