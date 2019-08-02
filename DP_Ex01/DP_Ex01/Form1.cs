@@ -121,11 +121,15 @@ namespace DP_Ex01
 
         private void fetchUserInfo()
         {
-            profilePictureBox.LoadAsync(m_LoggedInUser.PictureNormalURL);
-           /* if (m_LoggedInUser.Posts.Count > 0)
-            {
-                textBoxStatus.Text = m_LoggedInUser.Posts[0].Message;
-            }*/
+            pictureBoxFeed.LoadAsync(m_LoggedInUser.PictureNormalURL);
+            pictureBoxProfile.LoadAsync(m_LoggedInUser.PictureNormalURL);
+            labelNameValue.Text = m_LoggedInUser.Name;
+            labelBirthdayValue.Text = m_LoggedInUser.Birthday;
+            labelNumOfFriends.Text = string.Format("Has {0} friends.", m_LoggedInUser.Friends.Count);
+            /* if (m_LoggedInUser.Posts.Count > 0)
+             {
+                 textBoxStatus.Text = m_LoggedInUser.Posts[0].Message;
+             }*/
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -135,14 +139,18 @@ namespace DP_Ex01
 
         private void logout()
         {
-            tabLoginLogout.Text = "Login";   
-            buttonLoginLogout.Text = "Login";
-            checkboxRememberMe.Show();
-            labelWelcome.Text = r_WelcomeMessage;
-            m_LoggedInUser = null;
-            m_LoginResult = null;
-            FacebookService.Logout(() => {});
-            enableTabsControlsIfUserLoggedIn();
+            FacebookService.Logout(() => 
+                {
+                    tabLoginLogout.Text = "Login";
+                    buttonLoginLogout.Text = "Login";
+                    checkboxRememberMe.Show();
+                    labelWelcome.Text = r_WelcomeMessage;
+                    m_LoggedInUser = null;
+                    m_LoginResult = null;
+                    enableTabsControlsIfUserLoggedIn();
+                }
+            );
+            
         }
 
         private void buttonLoginLogout_Click(object sender, EventArgs e)
@@ -163,6 +171,16 @@ namespace DP_Ex01
         }
 
         private void buttonLoginLogout_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabProfile_Click(object sender, EventArgs e)
         {
 
         }
