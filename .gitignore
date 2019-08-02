@@ -1,0 +1,6 @@
+.vs/
+*.lock
+*.cache
+*.pdb
+bin/
+obj/
