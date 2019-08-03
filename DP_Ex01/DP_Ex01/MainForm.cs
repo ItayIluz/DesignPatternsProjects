@@ -34,6 +34,7 @@ namespace DP_Ex01
         private LoginResult m_LoginResult;
         private User m_LoggedInUser = null;
         private bool m_profileDataLoaded = false;
+        private readonly PleaseWaitDialog r_PleaseWaitDialog;
 
         public MainForm()
         {
@@ -48,6 +49,7 @@ namespace DP_Ex01
             this.checkboxRememberMe.Checked = m_AppSettings.RememberUser;
 
             enableTabsControlsIfUserLoggedIn();
+            r_PleaseWaitDialog = new PleaseWaitDialog(this);
         }
 
         private void enableTabsControlsIfUserLoggedIn()
@@ -80,20 +82,19 @@ namespace DP_Ex01
         private void onTabControlSelect(object i_Sender, TabControlEventArgs i_Args)
         {
             TabPage selectedTab = (i_Sender as TabControl).SelectedTab;
-            PleaseWaitDialog pleaseWaitDialog = new PleaseWaitDialog(this);
 
             if (selectedTab == tabProfile && !m_profileDataLoaded)
             {
-                pleaseWaitDialog.Show();
+                r_PleaseWaitDialog.Show();
                 populateProfileData();
-                pleaseWaitDialog.Hide();
+                r_PleaseWaitDialog.Hide();
             }
 
             if (selectedTab == tabFeed)
             {
-                pleaseWaitDialog.Show();
+                r_PleaseWaitDialog.Show();
                 populateFeedData();
-                pleaseWaitDialog.Hide();
+                r_PleaseWaitDialog.Hide();
             }
         }
 
@@ -138,11 +139,11 @@ namespace DP_Ex01
         private void populateFeedData()
         {
             pictureBoxFeed.LoadAsync(m_LoggedInUser.PictureNormalURL);
-
-            foreach (Album album in m_LoggedInUser.Albums)
+            fetchPosts();
+           /* foreach (Album album in m_LoggedInUser.Albums)
             {
                 Console.WriteLine(album.Name);
-            }
+            }*/
         }
 
         private void populateProfileData()
@@ -195,6 +196,48 @@ namespace DP_Ex01
             }
         }
 
+        private void fetchPosts()
+        {
+            if (m_LoggedInUser.Posts.Count != 0)
+            {
+                foreach (Post post in m_LoggedInUser.Posts)
+                {
+                    if (post.Message != null)
+                    {
+                        listBoxLatestsPosts.Items.Add(post.Message);
+                    }
+                    else if (post.Caption != null)
+                    {
+                        listBoxLatestsPosts.Items.Add(post.Caption);
+                    }
+                    else
+                    {
+                        listBoxLatestsPosts.Items.Add(string.Format("[{0}]", post.Type));
+                    }
+                }
+                listBoxLatestPostComments.Items.Add("Click on a post to see its comments.");
+            }
+            else
+            {
+                listBoxLatestsPosts.Items.Add("No Posts to retrieve :(");
+            }
+        }
+
+        private void listBoxLatestsPosts_SelectedIndexChanged(object i_Sender, EventArgs i_EventArgs)
+        {
+            Post selectedPost = m_LoggedInUser.Posts[listBoxLatestsPosts.SelectedIndex];
+            if (selectedPost.Comments.Count > 0)
+            {
+                listBoxLatestPostComments.DisplayMember = "Message";
+                listBoxLatestPostComments.DataSource = selectedPost.Comments;
+            }
+            else
+            {
+                listBoxLatestPostComments.Items.Clear();
+                listBoxLatestPostComments.Items.Add("No comments.");
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
         }
@@ -229,24 +272,10 @@ namespace DP_Ex01
             }
         }
 
-        private void pictureBox1_Click(object i_Sender, EventArgs i_EventArgs)
+        private void buttonPostStatus_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void buttonLoginLogout_Click_1(object i_Sender, EventArgs i_EventArgs)
-        {
-
-        }
-
-        private void label1_Click(object i_Sender, EventArgs i_EventArgs)
-        {
-
-        }
-
-        private void tabProfile_Click(object i_Sender, EventArgs i_EventArgs)
-        {
-
+            Status postedStatus = m_LoggedInUser.PostStatus(textBoxPostStatus.Text);
+            MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
         }
     }
 }

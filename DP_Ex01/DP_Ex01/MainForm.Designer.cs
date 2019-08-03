@@ -36,8 +36,12 @@
             this.buttonLoginLogout = new System.Windows.Forms.Button();
             this.checkboxRememberMe = new System.Windows.Forms.CheckBox();
             this.tabFeed = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonPostStatus = new System.Windows.Forms.Button();
+            this.textBoxPostStatus = new System.Windows.Forms.TextBox();
+            this.labelPostStatus = new System.Windows.Forms.Label();
             this.tabProfile = new System.Windows.Forms.TabPage();
+            this.listBoxEvents = new System.Windows.Forms.ListBox();
+            this.listBoxFriends = new System.Windows.Forms.ListBox();
             this.labelBirthdayValue = new System.Windows.Forms.Label();
             this.labelNameValue = new System.Windows.Forms.Label();
             this.labelNumOfFriends = new System.Windows.Forms.Label();
@@ -50,8 +54,9 @@
             this.tabAdditionalInfo = new System.Windows.Forms.TabPage();
             this.tabFeature1 = new System.Windows.Forms.TabPage();
             this.tabFeature2 = new System.Windows.Forms.TabPage();
-            this.listBoxFriends = new System.Windows.Forms.ListBox();
-            this.listBoxEvents = new System.Windows.Forms.ListBox();
+            this.listBoxLatestsPosts = new System.Windows.Forms.ListBox();
+            this.labelLatestsPosts = new System.Windows.Forms.Label();
+            this.listBoxLatestPostComments = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFeed)).BeginInit();
             this.tabsControl.SuspendLayout();
             this.tabLoginLogout.SuspendLayout();
@@ -67,7 +72,6 @@
             this.pictureBoxFeed.Size = new System.Drawing.Size(100, 100);
             this.pictureBoxFeed.TabIndex = 1;
             this.pictureBoxFeed.TabStop = false;
-            this.pictureBoxFeed.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // tabsControl
             // 
@@ -84,7 +88,7 @@
             this.tabsControl.Margin = new System.Windows.Forms.Padding(2);
             this.tabsControl.Name = "tabsControl";
             this.tabsControl.SelectedIndex = 0;
-            this.tabsControl.Size = new System.Drawing.Size(736, 368);
+            this.tabsControl.Size = new System.Drawing.Size(802, 399);
             this.tabsControl.TabIndex = 5;
             // 
             // tabLoginLogout
@@ -146,26 +150,50 @@
             // 
             // tabFeed
             // 
-            this.tabFeed.Controls.Add(this.button1);
+            this.tabFeed.Controls.Add(this.listBoxLatestPostComments);
+            this.tabFeed.Controls.Add(this.listBoxLatestsPosts);
+            this.tabFeed.Controls.Add(this.labelLatestsPosts);
+            this.tabFeed.Controls.Add(this.buttonPostStatus);
+            this.tabFeed.Controls.Add(this.textBoxPostStatus);
+            this.tabFeed.Controls.Add(this.labelPostStatus);
             this.tabFeed.Controls.Add(this.pictureBoxFeed);
             this.tabFeed.Location = new System.Drawing.Point(4, 24);
             this.tabFeed.Margin = new System.Windows.Forms.Padding(2);
             this.tabFeed.Name = "tabFeed";
             this.tabFeed.Padding = new System.Windows.Forms.Padding(2);
-            this.tabFeed.Size = new System.Drawing.Size(728, 340);
+            this.tabFeed.Size = new System.Drawing.Size(794, 371);
             this.tabFeed.TabIndex = 1;
             this.tabFeed.Text = "Feed";
             this.tabFeed.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // buttonPostStatus
             // 
-            this.button1.Location = new System.Drawing.Point(112, 36);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(56, 19);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonPostStatus.Font = new System.Drawing.Font("Comic Sans MS", 10F);
+            this.buttonPostStatus.Location = new System.Drawing.Point(639, 9);
+            this.buttonPostStatus.Name = "buttonPostStatus";
+            this.buttonPostStatus.Size = new System.Drawing.Size(75, 25);
+            this.buttonPostStatus.TabIndex = 4;
+            this.buttonPostStatus.Text = "Post";
+            this.buttonPostStatus.UseVisualStyleBackColor = true;
+            this.buttonPostStatus.Click += new System.EventHandler(this.buttonPostStatus_Click);
+            // 
+            // textBoxPostStatus
+            // 
+            this.textBoxPostStatus.Font = new System.Drawing.Font("Comic Sans MS", 10F);
+            this.textBoxPostStatus.Location = new System.Drawing.Point(240, 8);
+            this.textBoxPostStatus.Name = "textBoxPostStatus";
+            this.textBoxPostStatus.Size = new System.Drawing.Size(393, 26);
+            this.textBoxPostStatus.TabIndex = 3;
+            // 
+            // labelPostStatus
+            // 
+            this.labelPostStatus.AutoSize = true;
+            this.labelPostStatus.Font = new System.Drawing.Font("Comic Sans MS", 12F);
+            this.labelPostStatus.Location = new System.Drawing.Point(136, 11);
+            this.labelPostStatus.Name = "labelPostStatus";
+            this.labelPostStatus.Size = new System.Drawing.Size(98, 23);
+            this.labelPostStatus.TabIndex = 2;
+            this.labelPostStatus.Text = "Post Status:";
             // 
             // tabProfile
             // 
@@ -187,58 +215,82 @@
             this.tabProfile.TabIndex = 2;
             this.tabProfile.Text = "Profile";
             this.tabProfile.UseVisualStyleBackColor = true;
-            this.tabProfile.Click += new System.EventHandler(this.tabProfile_Click);
+            // 
+            // listBoxEvents
+            // 
+            this.listBoxEvents.FormattingEnabled = true;
+            this.listBoxEvents.ItemHeight = 15;
+            this.listBoxEvents.Location = new System.Drawing.Point(476, 76);
+            this.listBoxEvents.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxEvents.Name = "listBoxEvents";
+            this.listBoxEvents.Size = new System.Drawing.Size(189, 169);
+            this.listBoxEvents.TabIndex = 12;
+            // 
+            // listBoxFriends
+            // 
+            this.listBoxFriends.FormattingEnabled = true;
+            this.listBoxFriends.ItemHeight = 15;
+            this.listBoxFriends.Location = new System.Drawing.Point(249, 76);
+            this.listBoxFriends.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxFriends.Name = "listBoxFriends";
+            this.listBoxFriends.Size = new System.Drawing.Size(189, 169);
+            this.listBoxFriends.TabIndex = 11;
             // 
             // labelBirthdayValue
             // 
             this.labelBirthdayValue.AutoSize = true;
+            this.labelBirthdayValue.Font = new System.Drawing.Font("Comic Sans MS", 10F);
             this.labelBirthdayValue.Location = new System.Drawing.Point(73, 203);
             this.labelBirthdayValue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBirthdayValue.Name = "labelBirthdayValue";
-            this.labelBirthdayValue.Padding = new System.Windows.Forms.Padding(4);
-            this.labelBirthdayValue.Size = new System.Drawing.Size(8, 23);
+            this.labelBirthdayValue.Padding = new System.Windows.Forms.Padding(2);
+            this.labelBirthdayValue.Size = new System.Drawing.Size(4, 23);
             this.labelBirthdayValue.TabIndex = 10;
             // 
             // labelNameValue
             // 
             this.labelNameValue.AutoSize = true;
+            this.labelNameValue.Font = new System.Drawing.Font("Comic Sans MS", 10F);
             this.labelNameValue.Location = new System.Drawing.Point(52, 171);
             this.labelNameValue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelNameValue.Name = "labelNameValue";
-            this.labelNameValue.Padding = new System.Windows.Forms.Padding(4);
-            this.labelNameValue.Size = new System.Drawing.Size(8, 23);
+            this.labelNameValue.Padding = new System.Windows.Forms.Padding(2);
+            this.labelNameValue.Size = new System.Drawing.Size(4, 23);
             this.labelNameValue.TabIndex = 9;
             // 
             // labelNumOfFriends
             // 
             this.labelNumOfFriends.AutoSize = true;
+            this.labelNumOfFriends.Font = new System.Drawing.Font("Comic Sans MS", 10F);
             this.labelNumOfFriends.Location = new System.Drawing.Point(4, 235);
             this.labelNumOfFriends.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelNumOfFriends.Name = "labelNumOfFriends";
-            this.labelNumOfFriends.Padding = new System.Windows.Forms.Padding(4);
-            this.labelNumOfFriends.Size = new System.Drawing.Size(85, 23);
+            this.labelNumOfFriends.Padding = new System.Windows.Forms.Padding(2);
+            this.labelNumOfFriends.Size = new System.Drawing.Size(105, 23);
             this.labelNumOfFriends.TabIndex = 8;
             this.labelNumOfFriends.Text = "Has 0 Friends";
             // 
             // labelBirthday
             // 
             this.labelBirthday.AutoSize = true;
+            this.labelBirthday.Font = new System.Drawing.Font("Comic Sans MS", 10F);
             this.labelBirthday.Location = new System.Drawing.Point(4, 203);
             this.labelBirthday.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBirthday.Name = "labelBirthday";
-            this.labelBirthday.Padding = new System.Windows.Forms.Padding(4);
-            this.labelBirthday.Size = new System.Drawing.Size(62, 23);
+            this.labelBirthday.Padding = new System.Windows.Forms.Padding(2);
+            this.labelBirthday.Size = new System.Drawing.Size(73, 23);
             this.labelBirthday.TabIndex = 7;
             this.labelBirthday.Text = "Birthday:";
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
+            this.labelName.Font = new System.Drawing.Font("Comic Sans MS", 10F);
             this.labelName.Location = new System.Drawing.Point(4, 171);
             this.labelName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelName.Name = "labelName";
-            this.labelName.Padding = new System.Windows.Forms.Padding(4);
-            this.labelName.Size = new System.Drawing.Size(47, 23);
+            this.labelName.Padding = new System.Windows.Forms.Padding(2);
+            this.labelName.Size = new System.Drawing.Size(54, 23);
             this.labelName.TabIndex = 6;
             this.labelName.Text = "Name:";
             // 
@@ -263,7 +315,6 @@
             this.labelFriends.TabIndex = 3;
             this.labelFriends.Text = "Friends";
             this.labelFriends.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelFriends.Click += new System.EventHandler(this.label1_Click);
             // 
             // pictureBoxProfile
             // 
@@ -318,33 +369,46 @@
             this.tabFeature2.Text = "Feature 2";
             this.tabFeature2.UseVisualStyleBackColor = true;
             // 
-            // listBoxFriends
+            // listBoxLatestsPosts
             // 
-            this.listBoxFriends.FormattingEnabled = true;
-            this.listBoxFriends.ItemHeight = 15;
-            this.listBoxFriends.Location = new System.Drawing.Point(249, 76);
-            this.listBoxFriends.Margin = new System.Windows.Forms.Padding(2);
-            this.listBoxFriends.Name = "listBoxFriends";
-            this.listBoxFriends.Size = new System.Drawing.Size(189, 169);
-            this.listBoxFriends.TabIndex = 11;
+            this.listBoxLatestsPosts.FormattingEnabled = true;
+            this.listBoxLatestsPosts.ItemHeight = 15;
+            this.listBoxLatestsPosts.Location = new System.Drawing.Point(137, 108);
+            this.listBoxLatestsPosts.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxLatestsPosts.Name = "listBoxLatestsPosts";
+            this.listBoxLatestsPosts.Size = new System.Drawing.Size(316, 199);
+            this.listBoxLatestsPosts.TabIndex = 13;
+            this.listBoxLatestsPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxLatestsPosts_SelectedIndexChanged);
+
             // 
-            // listBoxEvents
+            // labelLatestsPosts
             // 
-            this.listBoxEvents.FormattingEnabled = true;
-            this.listBoxEvents.ItemHeight = 15;
-            this.listBoxEvents.Location = new System.Drawing.Point(476, 76);
-            this.listBoxEvents.Margin = new System.Windows.Forms.Padding(2);
-            this.listBoxEvents.Name = "listBoxEvents";
-            this.listBoxEvents.Size = new System.Drawing.Size(189, 169);
-            this.listBoxEvents.TabIndex = 12;
+            this.labelLatestsPosts.Font = new System.Drawing.Font("Comic Sans MS", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.labelLatestsPosts.Location = new System.Drawing.Point(137, 68);
+            this.labelLatestsPosts.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelLatestsPosts.Name = "labelLatestsPosts";
+            this.labelLatestsPosts.Size = new System.Drawing.Size(636, 38);
+            this.labelLatestsPosts.TabIndex = 12;
+            this.labelLatestsPosts.Text = "Latests Posts";
+            this.labelLatestsPosts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Form1
+            // listBoxLatestPostComments
+            // 
+            this.listBoxLatestPostComments.FormattingEnabled = true;
+            this.listBoxLatestPostComments.ItemHeight = 15;
+            this.listBoxLatestPostComments.Location = new System.Drawing.Point(457, 108);
+            this.listBoxLatestPostComments.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxLatestPostComments.Name = "listBoxLatestPostComments";
+            this.listBoxLatestPostComments.Size = new System.Drawing.Size(316, 199);
+            this.listBoxLatestPostComments.TabIndex = 14;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 368);
+            this.ClientSize = new System.Drawing.Size(802, 399);
             this.Controls.Add(this.tabsControl);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Facebook App";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFeed)).EndInit();
@@ -352,6 +416,7 @@
             this.tabLoginLogout.ResumeLayout(false);
             this.tabLoginLogout.PerformLayout();
             this.tabFeed.ResumeLayout(false);
+            this.tabFeed.PerformLayout();
             this.tabProfile.ResumeLayout(false);
             this.tabProfile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
@@ -379,11 +444,16 @@
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelNumOfFriends;
         private System.Windows.Forms.Label labelBirthday;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label labelBirthdayValue;
         private System.Windows.Forms.Label labelNameValue;
         private System.Windows.Forms.ListBox listBoxEvents;
         private System.Windows.Forms.ListBox listBoxFriends;
+        private System.Windows.Forms.TextBox textBoxPostStatus;
+        private System.Windows.Forms.Label labelPostStatus;
+        private System.Windows.Forms.Button buttonPostStatus;
+        private System.Windows.Forms.ListBox listBoxLatestsPosts;
+        private System.Windows.Forms.Label labelLatestsPosts;
+        private System.Windows.Forms.ListBox listBoxLatestPostComments;
     }
 }
 

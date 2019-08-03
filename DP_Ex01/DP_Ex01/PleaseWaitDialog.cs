@@ -14,6 +14,7 @@ namespace DP_Ex01
         public PleaseWaitDialog(Form i_ParentForm)
         {
             InitializeComponent();
+            this.Text = "Loading data, please wait...";
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(i_ParentForm.Location.X, i_ParentForm.Location.Y);
         }
