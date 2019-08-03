@@ -82,8 +82,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabMostLiked = new System.Windows.Forms.TabPage();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel7 = new System.Windows.Forms.Panel();
+            this.buttonCalculateMostLikedByFriends = new System.Windows.Forms.Button();
+            this.buttonCalculateFriendsUserLikesMost = new System.Windows.Forms.Button();
+            this.labelFriendsUserLikesMost = new System.Windows.Forms.Label();
+            this.labelFriendsWhoLikeUserMost = new System.Windows.Forms.Label();
+            this.dataGridViewFriendsUserLikesMost = new System.Windows.Forms.DataGridView();
+            this.dataGridViewFriendsWhoLikeUserMost = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFeed)).BeginInit();
             this.tabsControl.SuspendLayout();
             this.tabLoginLogout.SuspendLayout();
@@ -101,6 +107,9 @@
             this.tabWordUsageStatistics.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabMostLiked.SuspendLayout();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriendsUserLikesMost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriendsWhoLikeUserMost)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxFeed
@@ -726,20 +735,92 @@
             this.tabMostLiked.TabIndex = 6;
             this.tabMostLiked.Text = "Most Liked";
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // panel7
             // 
             this.panel7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel7.AutoSize = true;
             this.panel7.BackColor = System.Drawing.Color.White;
+            this.panel7.Controls.Add(this.buttonCalculateMostLikedByFriends);
+            this.panel7.Controls.Add(this.buttonCalculateFriendsUserLikesMost);
+            this.panel7.Controls.Add(this.labelFriendsUserLikesMost);
+            this.panel7.Controls.Add(this.labelFriendsWhoLikeUserMost);
+            this.panel7.Controls.Add(this.dataGridViewFriendsUserLikesMost);
+            this.panel7.Controls.Add(this.dataGridViewFriendsWhoLikeUserMost);
             this.panel7.Location = new System.Drawing.Point(94, -4);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(830, 515);
             this.panel7.TabIndex = 6;
+            // 
+            // buttonCalculateMostLikedByFriends
+            // 
+            this.buttonCalculateMostLikedByFriends.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(89)))), ((int)(((byte)(152)))));
+            this.buttonCalculateMostLikedByFriends.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonCalculateMostLikedByFriends.Location = new System.Drawing.Point(695, 41);
+            this.buttonCalculateMostLikedByFriends.Name = "buttonCalculateMostLikedByFriends";
+            this.buttonCalculateMostLikedByFriends.Size = new System.Drawing.Size(88, 24);
+            this.buttonCalculateMostLikedByFriends.TabIndex = 6;
+            this.buttonCalculateMostLikedByFriends.Text = "Fetch!";
+            this.buttonCalculateMostLikedByFriends.UseVisualStyleBackColor = false;
+            this.buttonCalculateMostLikedByFriends.Click += new System.EventHandler(this.buttonCalculateFriendsWhoLikeUserMost_Click);
+            // 
+            // buttonCalculateFriendsUserLikesMost
+            // 
+            this.buttonCalculateFriendsUserLikesMost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(89)))), ((int)(((byte)(152)))));
+            this.buttonCalculateFriendsUserLikesMost.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonCalculateFriendsUserLikesMost.Location = new System.Drawing.Point(298, 41);
+            this.buttonCalculateFriendsUserLikesMost.Name = "buttonCalculateFriendsUserLikesMost";
+            this.buttonCalculateFriendsUserLikesMost.Size = new System.Drawing.Size(88, 24);
+            this.buttonCalculateFriendsUserLikesMost.TabIndex = 5;
+            this.buttonCalculateFriendsUserLikesMost.Text = "Fetch!";
+            this.buttonCalculateFriendsUserLikesMost.UseVisualStyleBackColor = false;
+            this.buttonCalculateFriendsUserLikesMost.Click += new System.EventHandler(this.buttonCalculateFriendsUserLikesMost_Click);
+            // 
+            // labelFriendsUserLikesMost
+            // 
+            this.labelFriendsUserLikesMost.AutoSize = true;
+            this.labelFriendsUserLikesMost.Font = new System.Drawing.Font("Comic Sans MS", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.labelFriendsUserLikesMost.Location = new System.Drawing.Point(102, 41);
+            this.labelFriendsUserLikesMost.Name = "labelFriendsUserLikesMost";
+            this.labelFriendsUserLikesMost.Size = new System.Drawing.Size(190, 19);
+            this.labelFriendsUserLikesMost.TabIndex = 3;
+            this.labelFriendsUserLikesMost.Text = "Friends you like the most:";
+            // 
+            // labelFriendsWhoLikeUserMost
+            // 
+            this.labelFriendsWhoLikeUserMost.AutoSize = true;
+            this.labelFriendsWhoLikeUserMost.Font = new System.Drawing.Font("Comic Sans MS", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.labelFriendsWhoLikeUserMost.Location = new System.Drawing.Point(468, 41);
+            this.labelFriendsWhoLikeUserMost.Name = "labelFriendsWhoLikeUserMost";
+            this.labelFriendsWhoLikeUserMost.Size = new System.Drawing.Size(221, 19);
+            this.labelFriendsWhoLikeUserMost.TabIndex = 2;
+            this.labelFriendsWhoLikeUserMost.Text = "Friends who like you the most:";
+            // 
+            // dataGridViewFriendsUserLikesMost
+            // 
+            this.dataGridViewFriendsUserLikesMost.AllowUserToAddRows = false;
+            this.dataGridViewFriendsUserLikesMost.AllowUserToDeleteRows = false;
+            this.dataGridViewFriendsUserLikesMost.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFriendsUserLikesMost.Location = new System.Drawing.Point(106, 71);
+            this.dataGridViewFriendsUserLikesMost.Name = "dataGridViewFriendsUserLikesMost";
+            this.dataGridViewFriendsUserLikesMost.ReadOnly = true;
+            this.dataGridViewFriendsUserLikesMost.Size = new System.Drawing.Size(285, 340);
+            this.dataGridViewFriendsUserLikesMost.TabIndex = 1;
+            // 
+            // dataGridViewFriendsWhoLikeUserMost
+            // 
+            this.dataGridViewFriendsWhoLikeUserMost.AllowUserToAddRows = false;
+            this.dataGridViewFriendsWhoLikeUserMost.AllowUserToDeleteRows = false;
+            this.dataGridViewFriendsWhoLikeUserMost.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFriendsWhoLikeUserMost.Location = new System.Drawing.Point(484, 71);
+            this.dataGridViewFriendsWhoLikeUserMost.Name = "dataGridViewFriendsWhoLikeUserMost";
+            this.dataGridViewFriendsWhoLikeUserMost.ReadOnly = true;
+            this.dataGridViewFriendsWhoLikeUserMost.Size = new System.Drawing.Size(285, 340);
+            this.dataGridViewFriendsWhoLikeUserMost.TabIndex = 0;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // MainForm
             // 
@@ -775,6 +856,10 @@
             this.panel2.PerformLayout();
             this.tabMostLiked.ResumeLayout(false);
             this.tabMostLiked.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriendsUserLikesMost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriendsWhoLikeUserMost)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -835,6 +920,12 @@
         private System.Windows.Forms.Button buttonGoBackToAlbums;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label labelFriendsWhoLikeUserMost;
+        private System.Windows.Forms.DataGridView dataGridViewFriendsUserLikesMost;
+        private System.Windows.Forms.DataGridView dataGridViewFriendsWhoLikeUserMost;
+        private System.Windows.Forms.Label labelFriendsUserLikesMost;
+        private System.Windows.Forms.Button buttonCalculateFriendsUserLikesMost;
+        private System.Windows.Forms.Button buttonCalculateMostLikedByFriends;
     }
 }
 

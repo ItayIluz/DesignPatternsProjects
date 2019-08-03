@@ -4,6 +4,7 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DP_Ex01
 {
@@ -41,6 +42,7 @@ namespace DP_Ex01
         private bool m_AdditionalInfoDataLoaded = false;
         private bool m_AlbumsDataLoaded = false;
         private readonly PleaseWaitDialog r_PleaseWaitDialog;
+        private MostLikedFeature m_MostLikedFeature;
 
         public MainForm()
         {
@@ -143,6 +145,7 @@ namespace DP_Ex01
             if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
             {
                 m_LoggedInUser = m_LoginResult.LoggedInUser;
+                m_MostLikedFeature = new MostLikedFeature(m_LoggedInUser);
                 tabLoginLogout.Text = "Logout";
                 buttonLoginLogout.Text = "Logout";
                 checkboxRememberMe.Hide();
@@ -430,9 +433,9 @@ namespace DP_Ex01
             }
         }
 
-        private void showPostsWithSelectedWord(object sender, EventArgs e)
+        private void showPostsWithSelectedWord(object i_Sender, EventArgs i_Args)
         {
-            WordUsageDataPanel wordPanel = sender as WordUsageDataPanel;
+            WordUsageDataPanel wordPanel = i_Sender as WordUsageDataPanel;
 
             wordUsagePostsPanel.Controls.Clear();
             int postPanelWidth = wordUsagePostsPanel.ClientSize.Width - 25;
@@ -474,9 +477,29 @@ namespace DP_Ex01
             }
         }
 
-        private void buttonGoBackToAlbums_Click(object sender, EventArgs e)
+        private void buttonGoBackToAlbums_Click(object i_Sender, EventArgs i_Args)
         {
             populateAlbumsData();
+        }
+
+        private void buttonCalculateFriendsUserLikesMost_Click(object i_Sender, EventArgs i_Args)
+        {
+            r_PleaseWaitDialog.Show();
+            m_MostLikedFeature.CalculateMostLikedFriends();
+            dataGridViewFriendsUserLikesMost.DataSource = m_MostLikedFeature.m_MostLikedFriends.ToList();
+            dataGridViewFriendsUserLikesMost.Columns[0].HeaderText = "Friend";
+            dataGridViewFriendsUserLikesMost.Columns[1].HeaderText = "Total Likes";
+            r_PleaseWaitDialog.Hide();
+        }
+
+        private void buttonCalculateFriendsWhoLikeUserMost_Click(object i_Sender, EventArgs i_Args)
+        {
+            r_PleaseWaitDialog.Show();
+            m_MostLikedFeature.CalculateFriendsWhoLikeUserMost();
+            dataGridViewFriendsWhoLikeUserMost.DataSource = m_MostLikedFeature.m_FriendsWhoLikesUserMost.ToList();
+            dataGridViewFriendsWhoLikeUserMost.Columns[0].HeaderText = "Friend";
+            dataGridViewFriendsWhoLikeUserMost.Columns[1].HeaderText = "Total Likes";
+            r_PleaseWaitDialog.Hide();
         }
     }
 }
