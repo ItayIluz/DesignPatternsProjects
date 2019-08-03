@@ -159,6 +159,13 @@ namespace DP_Ex01
 
         private void populateAlbumsData()
         {
+            buttonGoBackToAlbums.Enabled = false;
+            listViewAlbums.Clear();
+            if (listViewAlbums.LargeImageList != null)
+            {
+                listViewAlbums.LargeImageList.Dispose();
+            }
+
             ImageList albumList = new ImageList();
             albumList.ImageSize = new Size(128, 128);
             int i = 0;
@@ -166,23 +173,39 @@ namespace DP_Ex01
             {
                 string albumKey = "album" + i;
                 albumList.Images.Add(albumKey, album.ImageThumb);
-                listViewAlbums.Items.Add(album.Name).ImageKey = albumKey;
+                ListViewItem item = listViewAlbums.Items.Add(album.Name);
+                item.ImageKey = albumKey;
+                item.ImageIndex = i;
                 i++;
             }
             listViewAlbums.LargeImageList = albumList;
         }
 
-        private void listViewAlbums_ItemSelectionChanged(object i_Sender, EventArgs i_EventArgs)
+        private void listViewAlbums_Click(object i_Sender, EventArgs i_EventArgs)
         {
             dynamic selectedAlbum = listViewAlbums.SelectedItems[0];
-            Console.WriteLine(selectedAlbum.Name);
-            /*foreach (Photo photo in album.Photos)
-               {
-                   string imageKey = "image" + i;
-                   imageList.Images.Add(imageKey, photo.ImageNormal);
-                   listViewAlbums.Items.Add(imageKey).ImageKey = imageKey;
-                   i++;
-               }*/
+            Album album = m_LoggedInUser.Albums.Find(albumToFind => albumToFind.Name.Equals(selectedAlbum.Text));
+            if (album != null)
+            {
+                r_PleaseWaitDialog.Show();
+                buttonGoBackToAlbums.Enabled = true;
+                listViewAlbums.Clear();
+                listViewAlbums.LargeImageList.Dispose();
+                ImageList photosList = new ImageList();
+                photosList.ImageSize = new Size(128, 128);
+                int i = 0;
+                foreach (Photo photo in album.Photos)
+                {
+                    string imageKey = album.Name + "Image" + i;
+                    photosList.Images.Add(imageKey, photo.ImageNormal);
+                    ListViewItem item = listViewAlbums.Items.Add(photo.Name);
+                    item.ImageKey = imageKey;
+                    item.ImageIndex = i;
+                    i++;
+                }
+                listViewAlbums.LargeImageList = photosList;
+                r_PleaseWaitDialog.Hide();
+            }
         }
 
         private void populateFeedData()
@@ -204,11 +227,6 @@ namespace DP_Ex01
                 fetchEvents();
                 m_ProfileDataLoaded = true;
             }
-
-            /* if (m_LoggedInUser.Posts.Count > 0)
-             {
-                 textBoxStatus.Text = m_LoggedInUser.Posts[0].Message;
-             }*/
         }
 
         private void populateAdditionalInfo()
@@ -379,26 +397,6 @@ namespace DP_Ex01
             }
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabFeature1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void showWordStatisticsButton_KeyUp(object sender, KeyEventArgs e)
-        {
-
-        }
-
         private void showWordStatisticsButton_Click(object sender, EventArgs e)
         {
             List<KeyValuePair<string, WordUsageStatistics.WordUsageData>> orderedWordsUsageData = WordUsageStatistics.GetWordUsageStatisticsOfPosts(m_LoggedInUser, startDatePicker.Value, endDatePicker.Value);
@@ -476,19 +474,9 @@ namespace DP_Ex01
             }
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void buttonGoBackToAlbums_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabAdditionalInfo_Click(object sender, EventArgs e)
-        {
-
+            populateAlbumsData();
         }
     }
 }
