@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using System.Drawing;
 
 namespace DP_Ex01
 {
@@ -36,6 +37,7 @@ namespace DP_Ex01
         private bool m_ProfileDataLoaded = false;
         private bool m_FeedDataLoaded = false;
         private bool m_AdditionalInfoDataLoaded = false;
+        private bool m_AlbumsDataLoaded = false;
         private readonly PleaseWaitDialog r_PleaseWaitDialog;
 
         public MainForm()
@@ -105,6 +107,13 @@ namespace DP_Ex01
                 populateAdditionalInfo();
                 r_PleaseWaitDialog.Hide();
             }
+
+            if (selectedTab == tabAlbums && !m_AlbumsDataLoaded)
+            {
+                r_PleaseWaitDialog.Show();
+                populateAlbumsData();
+                r_PleaseWaitDialog.Hide();
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs i_EventArgs)
@@ -145,15 +154,39 @@ namespace DP_Ex01
             }
         }
 
+        private void populateAlbumsData()
+        {
+            ImageList albumList = new ImageList();
+            albumList.ImageSize = new Size(128, 128);
+            int i = 0;
+            foreach (Album album in m_LoggedInUser.Albums)
+            {
+                string albumKey = "album" + i;
+                albumList.Images.Add(albumKey, album.ImageThumb);
+                listViewAlbums.Items.Add(album.Name).ImageKey = albumKey;
+                i++;
+            }
+            listViewAlbums.LargeImageList = albumList;
+        }
+
+        private void listViewAlbums_ItemSelectionChanged(object i_Sender, EventArgs i_EventArgs)
+        {
+            dynamic selectedAlbum = listViewAlbums.SelectedItems[0];
+            Console.WriteLine(selectedAlbum.Name);
+            /*foreach (Photo photo in album.Photos)
+               {
+                   string imageKey = "image" + i;
+                   imageList.Images.Add(imageKey, photo.ImageNormal);
+                   listViewAlbums.Items.Add(imageKey).ImageKey = imageKey;
+                   i++;
+               }*/
+        }
+
         private void populateFeedData()
         {
             pictureBoxFeed.LoadAsync(m_LoggedInUser.PictureNormalURL);
             fetchPosts();
             m_FeedDataLoaded = true;
-           /* foreach (Album album in m_LoggedInUser.Albums)
-            {
-                Console.WriteLine(album.Name);
-            }*/
         }
 
         private void populateProfileData()

@@ -55,6 +55,7 @@
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.tabAlbums = new System.Windows.Forms.TabPage();
             this.tabAdditionalInfo = new System.Windows.Forms.TabPage();
+            this.labelShowActions = new System.Windows.Forms.Label();
             this.dataGridShowActions = new System.Windows.Forms.DataGridView();
             this.comboBoxShowActions = new System.Windows.Forms.ComboBox();
             this.listBoxCheckins = new System.Windows.Forms.ListBox();
@@ -63,13 +64,14 @@
             this.labelLikedPages = new System.Windows.Forms.Label();
             this.tabFeature1 = new System.Windows.Forms.TabPage();
             this.tabFeature2 = new System.Windows.Forms.TabPage();
-            this.labelShowActions = new System.Windows.Forms.Label();
+            this.listViewAlbums = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFeed)).BeginInit();
             this.tabsControl.SuspendLayout();
             this.tabLoginLogout.SuspendLayout();
             this.tabFeed.SuspendLayout();
             this.tabProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
+            this.tabAlbums.SuspendLayout();
             this.tabAdditionalInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridShowActions)).BeginInit();
             this.SuspendLayout();
@@ -368,6 +370,7 @@
             // 
             // tabAlbums
             // 
+            this.tabAlbums.Controls.Add(this.listViewAlbums);
             this.tabAlbums.Location = new System.Drawing.Point(4, 24);
             this.tabAlbums.Margin = new System.Windows.Forms.Padding(2);
             this.tabAlbums.Name = "tabAlbums";
@@ -394,6 +397,16 @@
             this.tabAdditionalInfo.TabIndex = 4;
             this.tabAdditionalInfo.Text = "Additional Info";
             this.tabAdditionalInfo.UseVisualStyleBackColor = true;
+            // 
+            // labelShowActions
+            // 
+            this.labelShowActions.AutoSize = true;
+            this.labelShowActions.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Bold);
+            this.labelShowActions.Location = new System.Drawing.Point(35, 241);
+            this.labelShowActions.Name = "labelShowActions";
+            this.labelShowActions.Size = new System.Drawing.Size(105, 19);
+            this.labelShowActions.TabIndex = 26;
+            this.labelShowActions.Text = "Show Actions:";
             // 
             // dataGridShowActions
             // 
@@ -503,15 +516,14 @@
             this.tabFeature2.Text = "Feature 2";
             this.tabFeature2.UseVisualStyleBackColor = true;
             // 
-            // labelShowActions
+            // listViewAlbums
             // 
-            this.labelShowActions.AutoSize = true;
-            this.labelShowActions.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Bold);
-            this.labelShowActions.Location = new System.Drawing.Point(35, 241);
-            this.labelShowActions.Name = "labelShowActions";
-            this.labelShowActions.Size = new System.Drawing.Size(105, 19);
-            this.labelShowActions.TabIndex = 26;
-            this.labelShowActions.Text = "Show Actions:";
+            this.listViewAlbums.Location = new System.Drawing.Point(3, 5);
+            this.listViewAlbums.Name = "listViewAlbums";
+            this.listViewAlbums.Size = new System.Drawing.Size(838, 483);
+            this.listViewAlbums.TabIndex = 1;
+            this.listViewAlbums.UseCompatibleStateImageBehavior = false;
+            this.listViewAlbums.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listViewAlbums_ItemSelectionChanged);
             // 
             // MainForm
             // 
@@ -531,6 +543,7 @@
             this.tabProfile.ResumeLayout(false);
             this.tabProfile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
+            this.tabAlbums.ResumeLayout(false);
             this.tabAdditionalInfo.ResumeLayout(false);
             this.tabAdditionalInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridShowActions)).EndInit();
@@ -575,6 +588,7 @@
         private System.Windows.Forms.ComboBox comboBoxShowActions;
         private System.Windows.Forms.DataGridView dataGridShowActions;
         private System.Windows.Forms.Label labelShowActions;
+        private System.Windows.Forms.ListView listViewAlbums;
     }
 }
 
