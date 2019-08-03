@@ -3,13 +3,15 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace DP_Ex01
 {
     public partial class MainForm : Form
     {
+
         private readonly string r_WelcomeMessage = "Hello! Please login to Facebook";
-        private readonly string[] r_Permissions = 
+        private readonly string[] r_Permissions =
         {
             "public_profile",
             "email",
@@ -114,6 +116,7 @@ namespace DP_Ex01
                 populateAlbumsData();
                 r_PleaseWaitDialog.Hide();
             }
+
         }
 
         protected override void OnFormClosing(FormClosingEventArgs i_EventArgs)
@@ -123,7 +126,7 @@ namespace DP_Ex01
             m_AppSettings.LastWindowSize = this.Size;
             m_AppSettings.LastWindowLocation = this.Location;
             m_AppSettings.RememberUser = this.checkboxRememberMe.Checked;
-            if(m_AppSettings.RememberUser)
+            if (m_AppSettings.RememberUser)
             {
                 m_AppSettings.LastAccessToken = m_LoginResult.AccessToken;
             }
@@ -139,7 +142,7 @@ namespace DP_Ex01
         {
             if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
             {
-                m_LoggedInUser = m_LoginResult.LoggedInUser;     
+                m_LoggedInUser = m_LoginResult.LoggedInUser;
                 tabLoginLogout.Text = "Logout";
                 buttonLoginLogout.Text = "Logout";
                 checkboxRememberMe.Hide();
@@ -191,7 +194,7 @@ namespace DP_Ex01
 
         private void populateProfileData()
         {
-            if(m_LoggedInUser != null)
+            if (m_LoggedInUser != null)
             {
                 pictureBoxProfile.LoadAsync(m_LoggedInUser.PictureNormalURL);
                 labelNameValue.Text = m_LoggedInUser.Name;
@@ -201,7 +204,7 @@ namespace DP_Ex01
                 fetchEvents();
                 m_ProfileDataLoaded = true;
             }
-            
+
             /* if (m_LoggedInUser.Posts.Count > 0)
              {
                  textBoxStatus.Text = m_LoggedInUser.Posts[0].Message;
@@ -301,7 +304,7 @@ namespace DP_Ex01
 
         private void logout()
         {
-            FacebookService.Logout(() => 
+            FacebookService.Logout(() =>
                 {
                     tabLoginLogout.Text = "Login";
                     buttonLoginLogout.Text = "Login";
@@ -312,12 +315,12 @@ namespace DP_Ex01
                     enableTabsControlsIfUserLoggedIn();
                 }
             );
-            
+
         }
 
         private void buttonLoginLogout_Click(object i_Sender, EventArgs i_EventArgs)
         {
-            if(m_LoggedInUser != null)
+            if (m_LoggedInUser != null)
             {
                 logout();
             }
@@ -370,10 +373,122 @@ namespace DP_Ex01
                     listBoxLikedPages.Items.Add(page);
                 }
             }
-            else            
+            else
             {
                 listBoxLikedPages.Items.Add("No liked pages to retrieve :(");
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabFeature1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void showWordStatisticsButton_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void showWordStatisticsButton_Click(object sender, EventArgs e)
+        {
+            List<KeyValuePair<string, WordUsageStatistics.WordUsageData>> orderedWordsUsageData = WordUsageStatistics.GetWordUsageStatisticsOfPosts(m_LoggedInUser, startDatePicker.Value, endDatePicker.Value);
+            wordUsageDataPanel.Controls.Clear();
+            int wordPanelWidth = wordUsageDataPanel.ClientSize.Width - 25;
+            foreach (KeyValuePair<string, WordUsageStatistics.WordUsageData> wordUsageData in orderedWordsUsageData)
+            {
+                WordUsageDataPanel wordPanel = new WordUsageDataPanel();
+                Label wordLabel = new Label();
+                Label infoLable = new Label();
+
+                wordPanel.BackColor = Color.FromArgb(230, 230, 250);
+                wordPanel.Size = new Size(wordPanelWidth, 65);
+                wordPanel.BorderStyle = BorderStyle.FixedSingle;
+                wordPanel.Posts = wordUsageData.Value.posts;
+
+                wordLabel.Text = wordUsageData.Key;
+                wordLabel.Font = new Font(wordLabel.Font, FontStyle.Bold);
+                wordLabel.Top = 5;
+                wordLabel.Left = 15;
+                wordPanel.Controls.Add(wordLabel);
+
+                infoLable.Text = string.Format("used {0} times{1}in {2} posts", wordUsageData.Value.occurrencesCount, Environment.NewLine, wordUsageData.Value.posts.Count);
+                infoLable.Top = 25;
+                infoLable.Left = 15;
+                infoLable.Height = 30;
+                wordPanel.Controls.Add(infoLable);
+                wordUsageDataPanel.Controls.Add(wordPanel);
+
+                wordPanel.Click += showPostsWithSelectedWord;
+            }
+        }
+
+        private void showPostsWithSelectedWord(object sender, EventArgs e)
+        {
+            WordUsageDataPanel wordPanel = sender as WordUsageDataPanel;
+
+            wordUsagePostsPanel.Controls.Clear();
+            int postPanelWidth = wordUsagePostsPanel.ClientSize.Width - 25;
+            foreach (string post in wordPanel.Posts)
+            {
+                Panel panel = new Panel();
+                Label postText = new Label();
+                postText.Text = post;
+                postText.AutoSize = true;
+                postText.MaximumSize = new Size(postPanelWidth, int.MaxValue);
+
+                panel.BackColor = Color.FromArgb(230, 230, 250);
+                panel.Size = new Size(postPanelWidth, 65);
+                panel.MaximumSize = new Size(postPanelWidth, int.MaxValue);
+                panel.BorderStyle = BorderStyle.FixedSingle;
+                panel.Controls.Add(postText);
+
+                wordUsagePostsPanel.Controls.Add(panel);
+
+            }
+
+            
+        }
+
+        class WordUsageDataPanel : Panel
+        {
+            List<string> m_Posts;
+
+            public List<string> Posts
+            {
+                get
+                {
+                    return m_Posts;
+                }
+                set
+                {
+                    m_Posts = value;
+                }
+            }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabAdditionalInfo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
