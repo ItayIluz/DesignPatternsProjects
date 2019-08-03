@@ -36,6 +36,9 @@
             this.buttonLoginLogout = new System.Windows.Forms.Button();
             this.checkboxRememberMe = new System.Windows.Forms.CheckBox();
             this.tabFeed = new System.Windows.Forms.TabPage();
+            this.listBoxLatestPostComments = new System.Windows.Forms.ListBox();
+            this.listBoxLatestsPosts = new System.Windows.Forms.ListBox();
+            this.labelLatestsPosts = new System.Windows.Forms.Label();
             this.buttonPostStatus = new System.Windows.Forms.Button();
             this.textBoxPostStatus = new System.Windows.Forms.TextBox();
             this.labelPostStatus = new System.Windows.Forms.Label();
@@ -52,17 +55,23 @@
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.tabAlbums = new System.Windows.Forms.TabPage();
             this.tabAdditionalInfo = new System.Windows.Forms.TabPage();
+            this.dataGridShowActions = new System.Windows.Forms.DataGridView();
+            this.comboBoxShowActions = new System.Windows.Forms.ComboBox();
+            this.listBoxCheckins = new System.Windows.Forms.ListBox();
+            this.labelCheckins = new System.Windows.Forms.Label();
+            this.listBoxLikedPages = new System.Windows.Forms.ListBox();
+            this.labelLikedPages = new System.Windows.Forms.Label();
             this.tabFeature1 = new System.Windows.Forms.TabPage();
             this.tabFeature2 = new System.Windows.Forms.TabPage();
-            this.listBoxLatestsPosts = new System.Windows.Forms.ListBox();
-            this.labelLatestsPosts = new System.Windows.Forms.Label();
-            this.listBoxLatestPostComments = new System.Windows.Forms.ListBox();
+            this.labelShowActions = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFeed)).BeginInit();
             this.tabsControl.SuspendLayout();
             this.tabLoginLogout.SuspendLayout();
             this.tabFeed.SuspendLayout();
             this.tabProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
+            this.tabAdditionalInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridShowActions)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxFeed
@@ -88,7 +97,7 @@
             this.tabsControl.Margin = new System.Windows.Forms.Padding(2);
             this.tabsControl.Name = "tabsControl";
             this.tabsControl.SelectedIndex = 0;
-            this.tabsControl.Size = new System.Drawing.Size(802, 399);
+            this.tabsControl.Size = new System.Drawing.Size(854, 519);
             this.tabsControl.TabIndex = 5;
             // 
             // tabLoginLogout
@@ -101,7 +110,7 @@
             this.tabLoginLogout.Margin = new System.Windows.Forms.Padding(2);
             this.tabLoginLogout.Name = "tabLoginLogout";
             this.tabLoginLogout.Padding = new System.Windows.Forms.Padding(2);
-            this.tabLoginLogout.Size = new System.Drawing.Size(728, 340);
+            this.tabLoginLogout.Size = new System.Drawing.Size(846, 491);
             this.tabLoginLogout.TabIndex = 0;
             this.tabLoginLogout.Text = "Login";
             this.tabLoginLogout.UseVisualStyleBackColor = true;
@@ -161,10 +170,42 @@
             this.tabFeed.Margin = new System.Windows.Forms.Padding(2);
             this.tabFeed.Name = "tabFeed";
             this.tabFeed.Padding = new System.Windows.Forms.Padding(2);
-            this.tabFeed.Size = new System.Drawing.Size(794, 371);
+            this.tabFeed.Size = new System.Drawing.Size(846, 491);
             this.tabFeed.TabIndex = 1;
             this.tabFeed.Text = "Feed";
             this.tabFeed.UseVisualStyleBackColor = true;
+            // 
+            // listBoxLatestPostComments
+            // 
+            this.listBoxLatestPostComments.FormattingEnabled = true;
+            this.listBoxLatestPostComments.ItemHeight = 15;
+            this.listBoxLatestPostComments.Location = new System.Drawing.Point(457, 108);
+            this.listBoxLatestPostComments.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxLatestPostComments.Name = "listBoxLatestPostComments";
+            this.listBoxLatestPostComments.Size = new System.Drawing.Size(316, 199);
+            this.listBoxLatestPostComments.TabIndex = 14;
+            // 
+            // listBoxLatestsPosts
+            // 
+            this.listBoxLatestsPosts.FormattingEnabled = true;
+            this.listBoxLatestsPosts.ItemHeight = 15;
+            this.listBoxLatestsPosts.Location = new System.Drawing.Point(137, 108);
+            this.listBoxLatestsPosts.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxLatestsPosts.Name = "listBoxLatestsPosts";
+            this.listBoxLatestsPosts.Size = new System.Drawing.Size(316, 199);
+            this.listBoxLatestsPosts.TabIndex = 13;
+            this.listBoxLatestsPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxLatestsPosts_SelectedIndexChanged);
+            // 
+            // labelLatestsPosts
+            // 
+            this.labelLatestsPosts.Font = new System.Drawing.Font("Comic Sans MS", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.labelLatestsPosts.Location = new System.Drawing.Point(137, 68);
+            this.labelLatestsPosts.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelLatestsPosts.Name = "labelLatestsPosts";
+            this.labelLatestsPosts.Size = new System.Drawing.Size(636, 38);
+            this.labelLatestsPosts.TabIndex = 12;
+            this.labelLatestsPosts.Text = "Latests Posts";
+            this.labelLatestsPosts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonPostStatus
             // 
@@ -211,7 +252,7 @@
             this.tabProfile.Margin = new System.Windows.Forms.Padding(2);
             this.tabProfile.Name = "tabProfile";
             this.tabProfile.Padding = new System.Windows.Forms.Padding(2);
-            this.tabProfile.Size = new System.Drawing.Size(728, 340);
+            this.tabProfile.Size = new System.Drawing.Size(846, 491);
             this.tabProfile.TabIndex = 2;
             this.tabProfile.Text = "Profile";
             this.tabProfile.UseVisualStyleBackColor = true;
@@ -220,7 +261,7 @@
             // 
             this.listBoxEvents.FormattingEnabled = true;
             this.listBoxEvents.ItemHeight = 15;
-            this.listBoxEvents.Location = new System.Drawing.Point(476, 76);
+            this.listBoxEvents.Location = new System.Drawing.Point(451, 57);
             this.listBoxEvents.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxEvents.Name = "listBoxEvents";
             this.listBoxEvents.Size = new System.Drawing.Size(189, 169);
@@ -230,7 +271,7 @@
             // 
             this.listBoxFriends.FormattingEnabled = true;
             this.listBoxFriends.ItemHeight = 15;
-            this.listBoxFriends.Location = new System.Drawing.Point(249, 76);
+            this.listBoxFriends.Location = new System.Drawing.Point(224, 57);
             this.listBoxFriends.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxFriends.Name = "listBoxFriends";
             this.listBoxFriends.Size = new System.Drawing.Size(189, 169);
@@ -297,7 +338,7 @@
             // labelEvents
             // 
             this.labelEvents.Font = new System.Drawing.Font("Comic Sans MS", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.labelEvents.Location = new System.Drawing.Point(476, 36);
+            this.labelEvents.Location = new System.Drawing.Point(451, 17);
             this.labelEvents.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelEvents.Name = "labelEvents";
             this.labelEvents.Size = new System.Drawing.Size(188, 38);
@@ -308,7 +349,7 @@
             // labelFriends
             // 
             this.labelFriends.Font = new System.Drawing.Font("Comic Sans MS", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.labelFriends.Location = new System.Drawing.Point(248, 36);
+            this.labelFriends.Location = new System.Drawing.Point(223, 17);
             this.labelFriends.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFriends.Name = "labelFriends";
             this.labelFriends.Size = new System.Drawing.Size(188, 38);
@@ -331,21 +372,114 @@
             this.tabAlbums.Margin = new System.Windows.Forms.Padding(2);
             this.tabAlbums.Name = "tabAlbums";
             this.tabAlbums.Padding = new System.Windows.Forms.Padding(2);
-            this.tabAlbums.Size = new System.Drawing.Size(728, 340);
+            this.tabAlbums.Size = new System.Drawing.Size(846, 491);
             this.tabAlbums.TabIndex = 3;
             this.tabAlbums.Text = "Albums";
             this.tabAlbums.UseVisualStyleBackColor = true;
             // 
             // tabAdditionalInfo
             // 
+            this.tabAdditionalInfo.Controls.Add(this.labelShowActions);
+            this.tabAdditionalInfo.Controls.Add(this.dataGridShowActions);
+            this.tabAdditionalInfo.Controls.Add(this.comboBoxShowActions);
+            this.tabAdditionalInfo.Controls.Add(this.listBoxCheckins);
+            this.tabAdditionalInfo.Controls.Add(this.labelCheckins);
+            this.tabAdditionalInfo.Controls.Add(this.listBoxLikedPages);
+            this.tabAdditionalInfo.Controls.Add(this.labelLikedPages);
             this.tabAdditionalInfo.Location = new System.Drawing.Point(4, 24);
             this.tabAdditionalInfo.Margin = new System.Windows.Forms.Padding(2);
             this.tabAdditionalInfo.Name = "tabAdditionalInfo";
             this.tabAdditionalInfo.Padding = new System.Windows.Forms.Padding(2);
-            this.tabAdditionalInfo.Size = new System.Drawing.Size(728, 340);
+            this.tabAdditionalInfo.Size = new System.Drawing.Size(846, 491);
             this.tabAdditionalInfo.TabIndex = 4;
             this.tabAdditionalInfo.Text = "Additional Info";
             this.tabAdditionalInfo.UseVisualStyleBackColor = true;
+            // 
+            // dataGridShowActions
+            // 
+            this.dataGridShowActions.AllowUserToAddRows = false;
+            this.dataGridShowActions.AllowUserToDeleteRows = false;
+            this.dataGridShowActions.AllowUserToOrderColumns = true;
+            this.dataGridShowActions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridShowActions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridShowActions.Location = new System.Drawing.Point(8, 270);
+            this.dataGridShowActions.Name = "dataGridShowActions";
+            this.dataGridShowActions.ReadOnly = true;
+            this.dataGridShowActions.Size = new System.Drawing.Size(562, 213);
+            this.dataGridShowActions.TabIndex = 25;
+            // 
+            // comboBoxShowActions
+            // 
+            this.comboBoxShowActions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxShowActions.FormattingEnabled = true;
+            this.comboBoxShowActions.Items.AddRange(new object[] {
+            "music",
+            "television",
+            "movies",
+            "books",
+            "books.reads",
+            "books.wants_to_read",
+            "books.rates",
+            "books.quotes",
+            "fitness.runs",
+            "fitness.walks",
+            "fitness.bikes",
+            "music.listens",
+            "music.playlists",
+            "news.reads",
+            "news.publishes",
+            "video.watches",
+            "video.rates",
+            "videos.wants_to_watch"});
+            this.comboBoxShowActions.Location = new System.Drawing.Point(146, 241);
+            this.comboBoxShowActions.Name = "comboBoxShowActions";
+            this.comboBoxShowActions.Size = new System.Drawing.Size(165, 23);
+            this.comboBoxShowActions.TabIndex = 24;
+            this.comboBoxShowActions.SelectedValueChanged += new System.EventHandler(this.comboBoxShowActions_SelectedValueChanged);
+            // 
+            // listBoxCheckins
+            // 
+            this.listBoxCheckins.FormattingEnabled = true;
+            this.listBoxCheckins.ItemHeight = 15;
+            this.listBoxCheckins.Location = new System.Drawing.Point(286, 54);
+            this.listBoxCheckins.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxCheckins.Name = "listBoxCheckins";
+            this.listBoxCheckins.Size = new System.Drawing.Size(189, 169);
+            this.listBoxCheckins.TabIndex = 19;
+            // 
+            // labelCheckins
+            // 
+            this.labelCheckins.Font = new System.Drawing.Font("Comic Sans MS", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.labelCheckins.Location = new System.Drawing.Point(285, 14);
+            this.labelCheckins.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelCheckins.Name = "labelCheckins";
+            this.labelCheckins.Size = new System.Drawing.Size(188, 38);
+            this.labelCheckins.TabIndex = 18;
+            this.labelCheckins.Text = "Checkins";
+            this.labelCheckins.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // listBoxLikedPages
+            // 
+            this.listBoxLikedPages.FormattingEnabled = true;
+            this.listBoxLikedPages.ItemHeight = 15;
+            this.listBoxLikedPages.Location = new System.Drawing.Point(66, 54);
+            this.listBoxLikedPages.Margin = new System.Windows.Forms.Padding(2);
+            this.listBoxLikedPages.Name = "listBoxLikedPages";
+            this.listBoxLikedPages.Size = new System.Drawing.Size(189, 169);
+            this.listBoxLikedPages.TabIndex = 17;
+            // 
+            // labelLikedPages
+            // 
+            this.labelLikedPages.Font = new System.Drawing.Font("Comic Sans MS", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.labelLikedPages.Location = new System.Drawing.Point(65, 14);
+            this.labelLikedPages.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelLikedPages.Name = "labelLikedPages";
+            this.labelLikedPages.Size = new System.Drawing.Size(188, 38);
+            this.labelLikedPages.TabIndex = 16;
+            this.labelLikedPages.Text = "Liked Pages";
+            this.labelLikedPages.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabFeature1
             // 
@@ -353,7 +487,7 @@
             this.tabFeature1.Margin = new System.Windows.Forms.Padding(2);
             this.tabFeature1.Name = "tabFeature1";
             this.tabFeature1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabFeature1.Size = new System.Drawing.Size(728, 340);
+            this.tabFeature1.Size = new System.Drawing.Size(846, 491);
             this.tabFeature1.TabIndex = 5;
             this.tabFeature1.Text = "Feature 1";
             this.tabFeature1.UseVisualStyleBackColor = true;
@@ -364,49 +498,26 @@
             this.tabFeature2.Margin = new System.Windows.Forms.Padding(2);
             this.tabFeature2.Name = "tabFeature2";
             this.tabFeature2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabFeature2.Size = new System.Drawing.Size(728, 340);
+            this.tabFeature2.Size = new System.Drawing.Size(846, 491);
             this.tabFeature2.TabIndex = 6;
             this.tabFeature2.Text = "Feature 2";
             this.tabFeature2.UseVisualStyleBackColor = true;
             // 
-            // listBoxLatestsPosts
+            // labelShowActions
             // 
-            this.listBoxLatestsPosts.FormattingEnabled = true;
-            this.listBoxLatestsPosts.ItemHeight = 15;
-            this.listBoxLatestsPosts.Location = new System.Drawing.Point(137, 108);
-            this.listBoxLatestsPosts.Margin = new System.Windows.Forms.Padding(2);
-            this.listBoxLatestsPosts.Name = "listBoxLatestsPosts";
-            this.listBoxLatestsPosts.Size = new System.Drawing.Size(316, 199);
-            this.listBoxLatestsPosts.TabIndex = 13;
-            this.listBoxLatestsPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxLatestsPosts_SelectedIndexChanged);
-
-            // 
-            // labelLatestsPosts
-            // 
-            this.labelLatestsPosts.Font = new System.Drawing.Font("Comic Sans MS", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.labelLatestsPosts.Location = new System.Drawing.Point(137, 68);
-            this.labelLatestsPosts.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelLatestsPosts.Name = "labelLatestsPosts";
-            this.labelLatestsPosts.Size = new System.Drawing.Size(636, 38);
-            this.labelLatestsPosts.TabIndex = 12;
-            this.labelLatestsPosts.Text = "Latests Posts";
-            this.labelLatestsPosts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // listBoxLatestPostComments
-            // 
-            this.listBoxLatestPostComments.FormattingEnabled = true;
-            this.listBoxLatestPostComments.ItemHeight = 15;
-            this.listBoxLatestPostComments.Location = new System.Drawing.Point(457, 108);
-            this.listBoxLatestPostComments.Margin = new System.Windows.Forms.Padding(2);
-            this.listBoxLatestPostComments.Name = "listBoxLatestPostComments";
-            this.listBoxLatestPostComments.Size = new System.Drawing.Size(316, 199);
-            this.listBoxLatestPostComments.TabIndex = 14;
+            this.labelShowActions.AutoSize = true;
+            this.labelShowActions.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Bold);
+            this.labelShowActions.Location = new System.Drawing.Point(35, 241);
+            this.labelShowActions.Name = "labelShowActions";
+            this.labelShowActions.Size = new System.Drawing.Size(105, 19);
+            this.labelShowActions.TabIndex = 26;
+            this.labelShowActions.Text = "Show Actions:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 399);
+            this.ClientSize = new System.Drawing.Size(854, 519);
             this.Controls.Add(this.tabsControl);
             this.Name = "MainForm";
             this.Text = "Facebook App";
@@ -420,6 +531,9 @@
             this.tabProfile.ResumeLayout(false);
             this.tabProfile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
+            this.tabAdditionalInfo.ResumeLayout(false);
+            this.tabAdditionalInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridShowActions)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -454,6 +568,13 @@
         private System.Windows.Forms.ListBox listBoxLatestsPosts;
         private System.Windows.Forms.Label labelLatestsPosts;
         private System.Windows.Forms.ListBox listBoxLatestPostComments;
+        private System.Windows.Forms.ListBox listBoxCheckins;
+        private System.Windows.Forms.Label labelCheckins;
+        private System.Windows.Forms.ListBox listBoxLikedPages;
+        private System.Windows.Forms.Label labelLikedPages;
+        private System.Windows.Forms.ComboBox comboBoxShowActions;
+        private System.Windows.Forms.DataGridView dataGridShowActions;
+        private System.Windows.Forms.Label labelShowActions;
     }
 }
 

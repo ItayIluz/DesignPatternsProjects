@@ -33,7 +33,9 @@ namespace DP_Ex01
         private AppSettings m_AppSettings;
         private LoginResult m_LoginResult;
         private User m_LoggedInUser = null;
-        private bool m_profileDataLoaded = false;
+        private bool m_ProfileDataLoaded = false;
+        private bool m_FeedDataLoaded = false;
+        private bool m_AdditionalInfoDataLoaded = false;
         private readonly PleaseWaitDialog r_PleaseWaitDialog;
 
         public MainForm()
@@ -83,17 +85,24 @@ namespace DP_Ex01
         {
             TabPage selectedTab = (i_Sender as TabControl).SelectedTab;
 
-            if (selectedTab == tabProfile && !m_profileDataLoaded)
+            if (selectedTab == tabProfile && !m_ProfileDataLoaded)
             {
                 r_PleaseWaitDialog.Show();
                 populateProfileData();
                 r_PleaseWaitDialog.Hide();
             }
 
-            if (selectedTab == tabFeed)
+            if (selectedTab == tabFeed && !m_FeedDataLoaded)
             {
                 r_PleaseWaitDialog.Show();
                 populateFeedData();
+                r_PleaseWaitDialog.Hide();
+            }
+
+            if (selectedTab == tabAdditionalInfo && !m_AdditionalInfoDataLoaded)
+            {
+                r_PleaseWaitDialog.Show();
+                populateAdditionalInfo();
                 r_PleaseWaitDialog.Hide();
             }
         }
@@ -140,6 +149,7 @@ namespace DP_Ex01
         {
             pictureBoxFeed.LoadAsync(m_LoggedInUser.PictureNormalURL);
             fetchPosts();
+            m_FeedDataLoaded = true;
            /* foreach (Album album in m_LoggedInUser.Albums)
             {
                 Console.WriteLine(album.Name);
@@ -156,7 +166,7 @@ namespace DP_Ex01
                 labelNumOfFriends.Text = string.Format("Has {0} friends.", m_LoggedInUser.Friends.Count);
                 fetchFriends();
                 fetchEvents();
-                m_profileDataLoaded = true;
+                m_ProfileDataLoaded = true;
             }
             
             /* if (m_LoggedInUser.Posts.Count > 0)
@@ -165,18 +175,29 @@ namespace DP_Ex01
              }*/
         }
 
+        private void populateAdditionalInfo()
+        {
+            fetchCheckins();
+            fetchLikedPages();
+            m_AdditionalInfoDataLoaded = true;
+        }
+
         private void fetchEvents()
         {
             listBoxEvents.Items.Clear();
             listBoxEvents.DisplayMember = "Name";
-            foreach (Event fbEvent in m_LoggedInUser.Events)
-            {
-                listBoxEvents.Items.Add(fbEvent);
-            }
 
             if (m_LoggedInUser.Events.Count == 0)
             {
+                foreach (Event fbEvent in m_LoggedInUser.Events)
+                {
+                    listBoxEvents.Items.Add(fbEvent);
+                }
+            }
+            else
+            {
                 listBoxEvents.Items.Add("No Events to retrieve :(");
+
             }
         }
 
@@ -184,13 +205,16 @@ namespace DP_Ex01
         {
             listBoxFriends.Items.Clear();
             listBoxFriends.DisplayMember = "Name";
-            foreach (User friend in m_LoggedInUser.Friends)
-            {
-                listBoxFriends.Items.Add(friend);
-                friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
-            }
 
-            if (m_LoggedInUser.Friends.Count == 0)
+            if (m_LoggedInUser.Friends.Count != 0)
+            {
+                foreach (User friend in m_LoggedInUser.Friends)
+                {
+                    listBoxFriends.Items.Add(friend);
+                    friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
+                }
+            }
+            else
             {
                 listBoxFriends.Items.Add("No Friends to retrieve :(");
             }
@@ -276,6 +300,47 @@ namespace DP_Ex01
         {
             Status postedStatus = m_LoggedInUser.PostStatus(textBoxPostStatus.Text);
             MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+        }
+
+        private void fetchCheckins()
+        {
+            if (m_LoggedInUser.Checkins.Count != 0)
+            {
+                foreach (Checkin checkin in m_LoggedInUser.Checkins)
+                {
+                    listBoxCheckins.Items.Add(checkin.Place.Name);
+                }
+            }
+            else
+            {
+                listBoxCheckins.Items.Add("No Checkins to retrieve :(");
+            }
+        }
+
+        private void comboBoxShowActions_SelectedValueChanged(object i_Sender, EventArgs i_EventArgs)
+        {
+            string actionType = comboBoxShowActions.SelectedItem.ToString();
+            FacebookObjectCollection<Page> actions = FacebookService.GetCollection<Page>(actionType);
+            dynamic actionsData = FacebookService.GetDynamicData(actionType);
+            dataGridShowActions.DataSource = actions;
+        }
+
+        private void fetchLikedPages()
+        {
+            listBoxLikedPages.Items.Clear();
+            listBoxLikedPages.DisplayMember = "Name";
+
+            if (m_LoggedInUser.LikedPages.Count != 0)
+            {
+                foreach (Page page in m_LoggedInUser.LikedPages)
+                {
+                    listBoxLikedPages.Items.Add(page);
+                }
+            }
+            else            
+            {
+                listBoxLikedPages.Items.Add("No liked pages to retrieve :(");
+            }
         }
     }
 }
