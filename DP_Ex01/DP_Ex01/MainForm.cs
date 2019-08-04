@@ -12,6 +12,7 @@ namespace DP_Ex01
     {
 
         private readonly string r_WelcomeMessage = "Hello! Please login to Facebook";
+        private readonly string r_ConnectionErrorMessage = "Error - Could not connect to facebook.";
         private readonly string[] r_Permissions =
         {
             "public_profile",
@@ -87,7 +88,7 @@ namespace DP_Ex01
                 }
                 catch (Facebook.WebExceptionWrapper exception)
                 {
-                    MessageBox.Show("Error - Could not connect to facebook.");
+                    MessageBox.Show(r_ConnectionErrorMessage);
                 }
                 
             }

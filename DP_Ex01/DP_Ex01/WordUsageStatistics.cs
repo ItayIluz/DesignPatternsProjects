@@ -7,7 +7,7 @@ using FacebookWrapper;
 
 namespace DP_Ex01
 {
-    class WordUsageStatistics
+    public class WordUsageStatistics
     {
         public static List<KeyValuePair<string, WordUsageData>> GetWordUsageStatisticsOfPosts(User i_User, DateTime i_StartDate, DateTime i_EndDate)
         {
