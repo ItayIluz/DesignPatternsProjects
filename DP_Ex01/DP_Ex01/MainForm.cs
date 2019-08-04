@@ -80,8 +80,16 @@ namespace DP_Ex01
 
             if (m_AppSettings.RememberUser && !string.IsNullOrEmpty(m_AppSettings.LastAccessToken))
             {
-                m_LoginResult = FacebookService.Connect(m_AppSettings.LastAccessToken);
-                initializeUserData();
+                try
+                {
+                    m_LoginResult = FacebookService.Connect(m_AppSettings.LastAccessToken);
+                    initializeUserData();
+                }
+                catch (Facebook.WebExceptionWrapper exception)
+                {
+                    MessageBox.Show("Error - Could not connect to facebook.");
+                }
+                
             }
 
             tabsControl.Selected += new TabControlEventHandler(onTabControlSelect);
@@ -162,26 +170,29 @@ namespace DP_Ex01
 
         private void populateAlbumsData()
         {
-            buttonGoBackToAlbums.Enabled = false;
-            listViewAlbums.Clear();
-            if (listViewAlbums.LargeImageList != null)
+            if (m_LoggedInUser != null)
             {
-                listViewAlbums.LargeImageList.Dispose();
-            }
+                buttonGoBackToAlbums.Enabled = false;
+                listViewAlbums.Clear();
+                if (listViewAlbums.LargeImageList != null)
+                {
+                    listViewAlbums.LargeImageList.Dispose();
+                }
 
-            ImageList albumList = new ImageList();
-            albumList.ImageSize = new Size(128, 128);
-            int i = 0;
-            foreach (Album album in m_LoggedInUser.Albums)
-            {
-                string albumKey = "album" + i;
-                albumList.Images.Add(albumKey, album.ImageThumb);
-                ListViewItem item = listViewAlbums.Items.Add(album.Name);
-                item.ImageKey = albumKey;
-                item.ImageIndex = i;
-                i++;
+                ImageList albumList = new ImageList();
+                albumList.ImageSize = new Size(128, 128);
+                int i = 0;
+                foreach (Album album in m_LoggedInUser.Albums)
+                {
+                    string albumKey = "album" + i;
+                    albumList.Images.Add(albumKey, album.ImageThumb);
+                    ListViewItem item = listViewAlbums.Items.Add(album.Name);
+                    item.ImageKey = albumKey;
+                    item.ImageIndex = i;
+                    i++;
+                }
+                listViewAlbums.LargeImageList = albumList;
             }
-            listViewAlbums.LargeImageList = albumList;
         }
 
         private void listViewAlbums_Click(object i_Sender, EventArgs i_EventArgs)
@@ -213,9 +224,12 @@ namespace DP_Ex01
 
         private void populateFeedData()
         {
-            pictureBoxFeed.LoadAsync(m_LoggedInUser.PictureNormalURL);
-            fetchPosts();
-            m_FeedDataLoaded = true;
+            if (m_LoggedInUser != null)
+            {
+                pictureBoxFeed.LoadAsync(m_LoggedInUser.PictureNormalURL);
+                fetchPosts();
+                m_FeedDataLoaded = true;
+            }
         }
 
         private void populateProfileData()
@@ -234,9 +248,12 @@ namespace DP_Ex01
 
         private void populateAdditionalInfo()
         {
-            fetchCheckins();
-            fetchLikedPages();
-            m_AdditionalInfoDataLoaded = true;
+            if (m_LoggedInUser != null)
+            {
+                fetchCheckins();
+                fetchLikedPages();
+                m_AdditionalInfoDataLoaded = true;
+            }
         }
 
         private void fetchEvents()

@@ -35,20 +35,20 @@ namespace DP_Ex01
             {
                 foreach (User likedByUser in post.LikedBy)
                 {
-                    incrementLikedItem(i_Results, likedByUser);
+                    incrementFriendLikes(i_Results, likedByUser);
                 }
 
                 foreach (Comment comment in post.Comments)
                 {
                     foreach (User likedByUser in comment.LikedBy)
                     {
-                        incrementLikedItem(i_Results, likedByUser);
+                        incrementFriendLikes(i_Results, likedByUser);
                     }
                 }
             }
         }
 
-        private void incrementLikedItem(Dictionary<string, int> i_DataStructure, User i_LikedByUser)
+        private void incrementFriendLikes(Dictionary<string, int> i_DataStructure, User i_LikedByUser)
         {
             if (i_DataStructure.ContainsKey(i_LikedByUser.Name))
             {
