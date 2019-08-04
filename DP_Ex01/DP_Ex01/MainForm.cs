@@ -503,11 +503,7 @@ namespace DP_Ex01
         {
             r_PleaseWaitDialog.Show();
             m_MostLikedFeature.CalculateMostLikedFriends();
-            List<KeyValuePair<string, int>> sortedResultList = m_MostLikedFeature.m_MostLikedFriends.ToList();
-            sortedResultList.Sort((KeyValuePair<string, int> pair1, KeyValuePair<string, int> pair2) => pair2.Value.CompareTo(pair1.Value));
-            dataGridViewFriendsUserLikesMost.DataSource = sortedResultList;
-            dataGridViewFriendsUserLikesMost.Columns[0].HeaderText = "Friend";
-            dataGridViewFriendsUserLikesMost.Columns[1].HeaderText = "Total Likes";
+            populateDataGridViewForMostLikedFeature(dataGridViewFriendsUserLikesMost, m_MostLikedFeature.m_MostLikedFriends);
             r_PleaseWaitDialog.Hide();
         }
 
@@ -515,12 +511,18 @@ namespace DP_Ex01
         {
             r_PleaseWaitDialog.Show();
             m_MostLikedFeature.CalculateFriendsWhoLikeUserMost();
-            List<KeyValuePair<string, int>> sortedResultList = m_MostLikedFeature.m_FriendsWhoLikesUserMost.ToList();
-            sortedResultList.Sort((KeyValuePair<string, int> pair1, KeyValuePair<string, int> pair2) => pair2.Value.CompareTo(pair1.Value));
-            dataGridViewFriendsWhoLikeUserMost.DataSource = sortedResultList;
-            dataGridViewFriendsWhoLikeUserMost.Columns[0].HeaderText = "Friend";
-            dataGridViewFriendsWhoLikeUserMost.Columns[1].HeaderText = "Total Likes";
+            populateDataGridViewForMostLikedFeature(dataGridViewFriendsWhoLikeUserMost, m_MostLikedFeature.m_FriendsWhoLikesUserMost);
             r_PleaseWaitDialog.Hide();
         }
+
+        private void populateDataGridViewForMostLikedFeature(DataGridView i_GridViewToPopulate, Dictionary<string, int> i_DataSource)
+        {
+            m_MostLikedFeature.CalculateFriendsWhoLikeUserMost();
+            List<KeyValuePair<string, int>> sortedResultList = i_DataSource.ToList();
+            sortedResultList.Sort((KeyValuePair<string, int> pair1, KeyValuePair<string, int> pair2) => pair2.Value.CompareTo(pair1.Value));
+            i_GridViewToPopulate.DataSource = sortedResultList;
+            i_GridViewToPopulate.Columns[0].HeaderText = "Friend";
+            i_GridViewToPopulate.Columns[1].HeaderText = "Total Likes";
+        } 
     }
 }
