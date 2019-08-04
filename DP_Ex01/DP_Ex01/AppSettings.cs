@@ -10,7 +10,9 @@ namespace DP_Ex01
         public Size LastWindowSize { get; set; }
         public bool RememberUser { get; set; }
         public string LastAccessToken { get; set; }
+
         private static AppSettings s_Instance;
+        private static readonly string sr_FilePath = "./appSettings.xml";
 
         private AppSettings()
         {
@@ -33,9 +35,9 @@ namespace DP_Ex01
         public static AppSettings LoadFromFile()
         {
             AppSettings appSettings = GetInstance();
-            if (File.Exists(@"D:\appSettings.xml"))
+            if (File.Exists(sr_FilePath))
             {
-                using (Stream stream = new FileStream(@"D:\appSettings.xml", FileMode.Open))
+                using (Stream stream = new FileStream(sr_FilePath, FileMode.Open))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
                     appSettings = serializer.Deserialize(stream) as AppSettings;
@@ -47,7 +49,7 @@ namespace DP_Ex01
 
         public void SaveToFile()
         {
-            using (Stream stream = new FileStream(@"D:\appSettings.xml", FileMode.Create))
+            using (Stream stream = new FileStream(sr_FilePath, FileMode.Create))
             {
                 XmlSerializer serializer = new XmlSerializer(this.GetType());
                 serializer.Serialize(stream, this);
