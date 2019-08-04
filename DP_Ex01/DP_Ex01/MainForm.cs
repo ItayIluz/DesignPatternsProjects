@@ -473,25 +473,6 @@ namespace DP_Ex01
                 wordUsagePostsPanel.Controls.Add(panel);
 
             }
-
-            
-        }
-
-        class WordUsageDataPanel : Panel
-        {
-            List<string> m_Posts;
-
-            public List<string> Posts
-            {
-                get
-                {
-                    return m_Posts;
-                }
-                set
-                {
-                    m_Posts = value;
-                }
-            }
         }
 
         private void buttonGoBackToAlbums_Click(object i_Sender, EventArgs i_Args)
