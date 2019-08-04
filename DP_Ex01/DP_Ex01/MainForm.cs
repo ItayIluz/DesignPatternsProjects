@@ -503,7 +503,9 @@ namespace DP_Ex01
         {
             r_PleaseWaitDialog.Show();
             m_MostLikedFeature.CalculateMostLikedFriends();
-            dataGridViewFriendsUserLikesMost.DataSource = m_MostLikedFeature.m_MostLikedFriends.ToList();
+            List<KeyValuePair<string, int>> sortedResultList = m_MostLikedFeature.m_MostLikedFriends.ToList();
+            sortedResultList.Sort((KeyValuePair<string, int> pair1, KeyValuePair<string, int> pair2) => pair2.Value.CompareTo(pair1.Value));
+            dataGridViewFriendsUserLikesMost.DataSource = sortedResultList;
             dataGridViewFriendsUserLikesMost.Columns[0].HeaderText = "Friend";
             dataGridViewFriendsUserLikesMost.Columns[1].HeaderText = "Total Likes";
             r_PleaseWaitDialog.Hide();
@@ -513,7 +515,9 @@ namespace DP_Ex01
         {
             r_PleaseWaitDialog.Show();
             m_MostLikedFeature.CalculateFriendsWhoLikeUserMost();
-            dataGridViewFriendsWhoLikeUserMost.DataSource = m_MostLikedFeature.m_FriendsWhoLikesUserMost.ToList();
+            List<KeyValuePair<string, int>> sortedResultList = m_MostLikedFeature.m_FriendsWhoLikesUserMost.ToList();
+            sortedResultList.Sort((KeyValuePair<string, int> pair1, KeyValuePair<string, int> pair2) => pair2.Value.CompareTo(pair1.Value));
+            dataGridViewFriendsWhoLikeUserMost.DataSource = sortedResultList;
             dataGridViewFriendsWhoLikeUserMost.Columns[0].HeaderText = "Friend";
             dataGridViewFriendsWhoLikeUserMost.Columns[1].HeaderText = "Total Likes";
             r_PleaseWaitDialog.Hide();
