@@ -42,7 +42,6 @@ namespace DP_Ex01
             this.Name = "PleaseWaitForm";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
     }
 }

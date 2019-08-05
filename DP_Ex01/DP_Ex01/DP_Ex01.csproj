@@ -51,11 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="FacebookApplication.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="FacebookApplication.Designer.cs">
+      <DependentUpon>FacebookApplication.cs</DependentUpon>
     </Compile>
     <Compile Include="MostLikedFeature.cs" />
     <Compile Include="PleaseWaitDialog.cs">
@@ -67,8 +67,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WordUsageStatistics.cs" />
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="FacebookApplication.resx">
+      <DependentUpon>FacebookApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PleaseWaitDialog.resx">
       <DependentUpon>PleaseWaitDialog.cs</DependentUpon>

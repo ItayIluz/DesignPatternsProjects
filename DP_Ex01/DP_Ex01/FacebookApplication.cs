@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace DP_Ex01
 {
-    public partial class MainForm : Form
+    public partial class FacebookApplication : Form
     {
 
         private readonly string r_WelcomeMessage = "Hello! Please login to Facebook";
@@ -45,7 +45,7 @@ namespace DP_Ex01
         private readonly PleaseWaitDialog r_PleaseWaitDialog;
         private MostLikedFeature m_MostLikedFeature;
 
-        public MainForm()
+        public FacebookApplication()
         {
             InitializeComponent();
 

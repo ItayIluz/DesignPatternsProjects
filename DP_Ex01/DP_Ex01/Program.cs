@@ -13,7 +13,7 @@ namespace DP_Ex01
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new FacebookApplication());
         }
     }
 }

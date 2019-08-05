@@ -1,6 +1,6 @@
 ﻿namespace DP_Ex01
 {
-    partial class MainForm
+    partial class FacebookApplication
     {
         /// <summary>
         /// Required designer variable.
