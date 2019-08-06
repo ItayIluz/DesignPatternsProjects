@@ -494,12 +494,19 @@ namespace DP_Ex01
 
         private void populateDataGridViewForMostLikedFeature(DataGridView i_GridViewToPopulate, Dictionary<string, int> i_DataSource)
         {
-            m_MostLikedFeature.CalculateFriendsWhoLikeUserMost();
-            List<KeyValuePair<string, int>> sortedResultList = i_DataSource.ToList();
-            sortedResultList.Sort(compareStringIntPair);
-            i_GridViewToPopulate.DataSource = sortedResultList;
-            i_GridViewToPopulate.Columns[0].HeaderText = "Friend";
-            i_GridViewToPopulate.Columns[1].HeaderText = "Total Likes";
+            if(i_DataSource.Count != 0)
+            {
+                m_MostLikedFeature.CalculateFriendsWhoLikeUserMost();
+                List<KeyValuePair<string, int>> sortedResultList = i_DataSource.ToList();
+                sortedResultList.Sort(compareStringIntPair);
+                i_GridViewToPopulate.DataSource = sortedResultList;
+                i_GridViewToPopulate.Columns[0].HeaderText = "Friend";
+                i_GridViewToPopulate.Columns[1].HeaderText = "Total Likes";
+            }
+            else
+            {
+                MessageBox.Show("No data found :(");
+            }
         } 
 
         private int compareStringIntPair(KeyValuePair<string, int> pair1, KeyValuePair<string, int> pair2)
