@@ -31,10 +31,10 @@ namespace DP_Ex01
                 {
                     if (wordsUsageData.TryGetValue(word, out wordUsageData))
                     {
-                        wordUsageData.occurrencesCount++;
-                        if ( !(postInserted.TryGetValue(word, out postHasBeenInserted) || postHasBeenInserted))
+                        wordUsageData.OccurrencesCount++;
+                        if (!(postInserted.TryGetValue(word, out postHasBeenInserted) || postHasBeenInserted))
                         {
-                            wordUsageData.posts.Add(post.Message);
+                            wordUsageData.Posts.Add(post.Message);
                             postInserted[word] = true;
                         }
 
@@ -43,8 +43,8 @@ namespace DP_Ex01
                     else
                     {
                         wordUsageData = new WordUsageData();
-                        wordUsageData.occurrencesCount = 1;
-                        wordUsageData.posts = new List<string> { post.Message };
+                        wordUsageData.OccurrencesCount = 1;
+                        wordUsageData.Posts = new List<string> { post.Message };
                         postInserted[word] = true;
 
                         wordsUsageData.Add(word, wordUsageData);
@@ -53,20 +53,20 @@ namespace DP_Ex01
             }
 
             List<KeyValuePair<string, WordUsageData>> sortedWordUsageDate = wordsUsageData.ToList();
-            sortedWordUsageDate.Sort(
-                delegate (KeyValuePair<string, WordUsageData> pair1,
-                            KeyValuePair<string, WordUsageData> pair2)
-                {
-                    return pair2.Value.occurrencesCount.CompareTo(pair1.Value.occurrencesCount);
-                });
+            sortedWordUsageDate.Sort(test);
 
             return sortedWordUsageDate;
         }
 
+        private static int test(KeyValuePair<string, WordUsageData> pair1, KeyValuePair<string, WordUsageData> pair2)
+        {
+            return pair2.Value.OccurrencesCount.CompareTo(pair1.Value.OccurrencesCount);
+        }
+
         public struct WordUsageData
         {
-            public int occurrencesCount;
-            public List<string> posts;
+            public int OccurrencesCount;
+            public List<string> Posts;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace DP_Ex01
 {
     public partial class FacebookApplication : Form
     {
-
         private readonly string r_WelcomeMessage = "Hello! Please login to Facebook";
         private readonly string r_ConnectionErrorMessage = "Error - Could not connect to facebook.";
         private readonly string[] r_Permissions =
@@ -35,21 +34,22 @@ namespace DP_Ex01
             "user_hometown"
         };
 
+        private readonly PleaseWaitDialog r_PleaseWaitDialog;
+
         private AppSettings m_AppSettings;
         private LoginResult m_LoginResult;
         private User m_LoggedInUser = null;
+        private MostLikedFeature m_MostLikedFeature;
         private bool m_ProfileDataLoaded = false;
         private bool m_FeedDataLoaded = false;
         private bool m_AdditionalInfoDataLoaded = false;
         private bool m_AlbumsDataLoaded = false;
-        private readonly PleaseWaitDialog r_PleaseWaitDialog;
-        private MostLikedFeature m_MostLikedFeature;
 
         public FacebookApplication()
         {
-            InitializeComponent();
-
             m_AppSettings = AppSettings.LoadFromFile();
+
+            InitializeComponent();
 
             this.StartPosition = FormStartPosition.Manual;
 
@@ -75,9 +75,9 @@ namespace DP_Ex01
             }
         }
 
-        protected override void OnShown(EventArgs i_EventArgs)
+        protected override void OnShown(EventArgs e)
         {
-            base.OnShown(i_EventArgs);
+            base.OnShown(e);
 
             if (m_AppSettings.RememberUser && !string.IsNullOrEmpty(m_AppSettings.LastAccessToken))
             {
@@ -90,15 +90,14 @@ namespace DP_Ex01
                 {
                     MessageBox.Show(r_ConnectionErrorMessage);
                 }
-                
             }
 
             tabsControl.Selected += new TabControlEventHandler(onTabControlSelect);
         }
 
-        private void onTabControlSelect(object i_Sender, TabControlEventArgs i_Args)
+        private void onTabControlSelect(object sender, TabControlEventArgs e)
         {
-            TabPage selectedTab = (i_Sender as TabControl).SelectedTab;
+            TabPage selectedTab = (sender as TabControl).SelectedTab;
 
             if (selectedTab == tabProfile && !m_ProfileDataLoaded)
             {
@@ -127,17 +126,16 @@ namespace DP_Ex01
                 populateAlbumsData();
                 r_PleaseWaitDialog.Hide();
             }
-
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs i_EventArgs)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            base.OnFormClosing(i_EventArgs);
+            base.OnFormClosing(e);
 
             m_AppSettings.LastWindowSize = this.Size;
             m_AppSettings.LastWindowLocation = this.Location;
             m_AppSettings.RememberUser = this.checkboxRememberMe.Checked;
-            if (m_AppSettings.RememberUser)
+            if (m_LoginResult != null && m_AppSettings.RememberUser)
             {
                 m_AppSettings.LastAccessToken = m_LoginResult.AccessToken;
             }
@@ -192,11 +190,12 @@ namespace DP_Ex01
                     item.ImageIndex = i;
                     i++;
                 }
+
                 listViewAlbums.LargeImageList = albumList;
             }
         }
 
-        private void listViewAlbums_Click(object i_Sender, EventArgs i_EventArgs)
+        private void listViewAlbums_Click(object sender, EventArgs e)
         {
             dynamic selectedAlbum = listViewAlbums.SelectedItems[0];
             Album album = m_LoggedInUser.Albums.Find(albumToFind => albumToFind.Name.Equals(selectedAlbum.Text));
@@ -218,6 +217,7 @@ namespace DP_Ex01
                     item.ImageIndex = i;
                     i++;
                 }
+
                 listViewAlbums.LargeImageList = photosList;
                 r_PleaseWaitDialog.Hide();
             }
@@ -272,7 +272,6 @@ namespace DP_Ex01
             else
             {
                 listBoxEvents.Items.Add("No Events to retrieve :(");
-
             }
         }
 
@@ -314,6 +313,7 @@ namespace DP_Ex01
                         listBoxLatestsPosts.Items.Add(string.Format("[{0}]", post.Type));
                     }
                 }
+
                 listBoxLatestPostComments.Items.Add("Click on a post to see its comments.");
             }
             else
@@ -322,7 +322,7 @@ namespace DP_Ex01
             }
         }
 
-        private void listBoxLatestsPosts_SelectedIndexChanged(object i_Sender, EventArgs i_EventArgs)
+        private void listBoxLatestsPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
             Post selectedPost = m_LoggedInUser.Posts[listBoxLatestsPosts.SelectedIndex];
             if (selectedPost.Comments.Count > 0)
@@ -337,27 +337,23 @@ namespace DP_Ex01
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
-
         private void logout()
         {
-            FacebookService.Logout(() =>
-                {
-                    tabLoginLogout.Text = "Login";
-                    buttonLoginLogout.Text = "Login";
-                    checkboxRememberMe.Show();
-                    labelWelcome.Text = r_WelcomeMessage;
-                    m_LoggedInUser = null;
-                    m_LoginResult = null;
-                    enableTabsControlsIfUserLoggedIn();
-                }
-            );
-
+            FacebookService.Logout(callbackAfterLogoutSuccessful);
         }
 
-        private void buttonLoginLogout_Click(object i_Sender, EventArgs i_EventArgs)
+        private void callbackAfterLogoutSuccessful()
+        {
+            tabLoginLogout.Text = "Login";
+            buttonLoginLogout.Text = "Login";
+            checkboxRememberMe.Show();
+            labelWelcome.Text = r_WelcomeMessage;
+            m_LoggedInUser = null;
+            m_LoginResult = null;
+            enableTabsControlsIfUserLoggedIn();
+        }
+
+        private void buttonLoginLogout_Click(object sender, EventArgs e)
         {
             if (m_LoggedInUser != null)
             {
@@ -392,7 +388,7 @@ namespace DP_Ex01
             }
         }
 
-        private void comboBoxShowActions_SelectedValueChanged(object i_Sender, EventArgs i_EventArgs)
+        private void comboBoxShowActions_SelectedValueChanged(object sender, EventArgs e)
         {
             string actionType = comboBoxShowActions.SelectedItem.ToString();
             FacebookObjectCollection<Page> actions = FacebookService.GetCollection<Page>(actionType);
@@ -432,7 +428,7 @@ namespace DP_Ex01
                 wordPanel.BackColor = Color.FromArgb(230, 230, 250);
                 wordPanel.Size = new Size(wordPanelWidth, 65);
                 wordPanel.BorderStyle = BorderStyle.FixedSingle;
-                wordPanel.Posts = wordUsageData.Value.posts;
+                wordPanel.Posts = wordUsageData.Value.Posts;
 
                 wordLabel.Text = wordUsageData.Key;
                 wordLabel.Font = new Font(wordLabel.Font, FontStyle.Bold);
@@ -440,7 +436,7 @@ namespace DP_Ex01
                 wordLabel.Left = 15;
                 wordPanel.Controls.Add(wordLabel);
 
-                infoLable.Text = string.Format("used {0} times{1}in {2} posts", wordUsageData.Value.occurrencesCount, Environment.NewLine, wordUsageData.Value.posts.Count);
+                infoLable.Text = string.Format("used {0} times{1}in {2} posts", wordUsageData.Value.OccurrencesCount, Environment.NewLine, wordUsageData.Value.Posts.Count);
                 infoLable.Top = 25;
                 infoLable.Left = 15;
                 infoLable.Height = 30;
@@ -451,9 +447,9 @@ namespace DP_Ex01
             }
         }
 
-        private void showPostsWithSelectedWord(object i_Sender, EventArgs i_Args)
+        private void showPostsWithSelectedWord(object sender, EventArgs e)
         {
-            WordUsageDataPanel wordPanel = i_Sender as WordUsageDataPanel;
+            WordUsageDataPanel wordPanel = sender as WordUsageDataPanel;
 
             wordUsagePostsPanel.Controls.Clear();
             int postPanelWidth = wordUsagePostsPanel.ClientSize.Width - 25;
@@ -472,16 +468,15 @@ namespace DP_Ex01
                 panel.Controls.Add(postText);
 
                 wordUsagePostsPanel.Controls.Add(panel);
-
             }
         }
 
-        private void buttonGoBackToAlbums_Click(object i_Sender, EventArgs i_Args)
+        private void buttonGoBackToAlbums_Click(object sender, EventArgs e)
         {
             populateAlbumsData();
         }
 
-        private void buttonCalculateFriendsUserLikesMost_Click(object i_Sender, EventArgs i_Args)
+        private void buttonCalculateFriendsUserLikesMost_Click(object sender, EventArgs e)
         {
             r_PleaseWaitDialog.Show();
             m_MostLikedFeature.CalculateMostLikedFriends();
@@ -489,7 +484,7 @@ namespace DP_Ex01
             r_PleaseWaitDialog.Hide();
         }
 
-        private void buttonCalculateFriendsWhoLikeUserMost_Click(object i_Sender, EventArgs i_Args)
+        private void buttonCalculateFriendsWhoLikeUserMost_Click(object sender, EventArgs e)
         {
             r_PleaseWaitDialog.Show();
             m_MostLikedFeature.CalculateFriendsWhoLikeUserMost();
@@ -501,10 +496,15 @@ namespace DP_Ex01
         {
             m_MostLikedFeature.CalculateFriendsWhoLikeUserMost();
             List<KeyValuePair<string, int>> sortedResultList = i_DataSource.ToList();
-            sortedResultList.Sort((KeyValuePair<string, int> pair1, KeyValuePair<string, int> pair2) => pair2.Value.CompareTo(pair1.Value));
+            sortedResultList.Sort(compareStringIntPair);
             i_GridViewToPopulate.DataSource = sortedResultList;
             i_GridViewToPopulate.Columns[0].HeaderText = "Friend";
             i_GridViewToPopulate.Columns[1].HeaderText = "Total Likes";
         } 
+
+        private int compareStringIntPair(KeyValuePair<string, int> pair1, KeyValuePair<string, int> pair2)
+        {
+            return pair2.Value.CompareTo(pair1.Value);
+        }
     }
 }

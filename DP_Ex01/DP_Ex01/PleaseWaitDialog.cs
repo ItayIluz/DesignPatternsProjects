@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace DP_Ex01
 {
-    class PleaseWaitDialog : Form
+    public class PleaseWaitDialog : Form
     {
         private Label labelPleaseWait;
 
@@ -23,9 +23,8 @@ namespace DP_Ex01
         {
             this.labelPleaseWait = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+
             // labelPleaseWait
-            // 
             this.labelPleaseWait.AutoSize = true;
             this.labelPleaseWait.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Bold);
             this.labelPleaseWait.Location = new System.Drawing.Point(12, 18);
@@ -34,9 +33,8 @@ namespace DP_Ex01
             this.labelPleaseWait.TabIndex = 0;
             this.labelPleaseWait.Text = "Loading data, please wait...";
             this.labelPleaseWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+
             // PleaseWaitForm
-            // 
             this.ClientSize = new System.Drawing.Size(226, 57);
             this.Controls.Add(this.labelPleaseWait);
             this.Name = "PleaseWaitForm";

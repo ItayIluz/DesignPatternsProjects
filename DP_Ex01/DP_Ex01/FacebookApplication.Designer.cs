@@ -1,6 +1,6 @@
 ﻿namespace DP_Ex01
 {
-    partial class FacebookApplication
+    public partial class FacebookApplication
     {
         /// <summary>
         /// Required designer variable.
@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -830,7 +831,6 @@
             this.Controls.Add(this.tabsControl);
             this.Name = "MainForm";
             this.Text = "Facebook App";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFeed)).EndInit();
             this.tabsControl.ResumeLayout(false);
             this.tabLoginLogout.ResumeLayout(false);
@@ -928,4 +928,3 @@
         private System.Windows.Forms.Button buttonCalculateMostLikedByFriends;
     }
 }
-
