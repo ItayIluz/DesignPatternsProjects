@@ -10,19 +10,15 @@ namespace DP_Ex01
         private static readonly object sr_InstanceLock = new object();
         private static volatile AppSettings s_Instance;
 
-        public Point LastWindowLocation { get; set; }
-        public Size LastWindowSize { get; set; }
-        public bool RememberUser { get; set; }
-        public string LastAccessToken { get; set; }
         public static AppSettings Instance
         {
             get
             {
-                if(s_Instance == null)
+                if (s_Instance == null)
                 {
-                    lock(sr_InstanceLock)
+                    lock (sr_InstanceLock)
                     {
-                        if(s_Instance == null)
+                        if (s_Instance == null)
                         {
                             s_Instance = new AppSettings();
                         }
@@ -32,6 +28,11 @@ namespace DP_Ex01
                 return s_Instance;
             }
         }
+
+        public Point LastWindowLocation { get; set; }
+        public Size LastWindowSize { get; set; }
+        public bool RememberUser { get; set; }
+        public string LastAccessToken { get; set; }
 
         private AppSettings()
         {
