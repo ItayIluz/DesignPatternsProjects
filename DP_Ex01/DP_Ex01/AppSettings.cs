@@ -14,7 +14,7 @@ namespace DP_Ex01
         public Size LastWindowSize { get; set; }
         public bool RememberUser { get; set; }
         public string LastAccessToken { get; set; }
-        public static AppSettings Instance
+        public AppSettings Instance
         {
             get
             {
