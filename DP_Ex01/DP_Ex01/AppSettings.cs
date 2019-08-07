@@ -4,15 +4,34 @@ using System.Xml.Serialization;
 
 namespace DP_Ex01
 {
-    public class AppSettings
+    public sealed class AppSettings
     {
+        private static readonly string sr_FilePath = "./appSettings.xml";
+        private static readonly object sr_InstanceLock = new object();
+        private static volatile AppSettings s_Instance;
+
         public Point LastWindowLocation { get; set; }
         public Size LastWindowSize { get; set; }
         public bool RememberUser { get; set; }
         public string LastAccessToken { get; set; }
+        public static AppSettings Instance
+        {
+            get
+            {
+                if(s_Instance == null)
+                {
+                    lock(sr_InstanceLock)
+                    {
+                        if(s_Instance == null)
+                        {
+                            s_Instance = new AppSettings();
+                        }
+                    }
+                }
 
-        private static AppSettings s_Instance;
-        private static readonly string sr_FilePath = "./appSettings.xml";
+                return s_Instance;
+            }
+        }
 
         private AppSettings()
         {
