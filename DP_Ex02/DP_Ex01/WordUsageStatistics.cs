@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 
@@ -53,14 +52,9 @@ namespace DP_Ex02
             }
 
             List<KeyValuePair<string, WordUsageData>> sortedWordUsageDate = wordsUsageData.ToList();
-            sortedWordUsageDate.Sort(test);
+            sortedWordUsageDate.Sort((pair1, pair2) => pair2.Value.OccurrencesCount.CompareTo(pair1.Value.OccurrencesCount));
 
             return sortedWordUsageDate;
-        }
-
-        private static int test(KeyValuePair<string, WordUsageData> pair1, KeyValuePair<string, WordUsageData> pair2)
-        {
-            return pair2.Value.OccurrencesCount.CompareTo(pair1.Value.OccurrencesCount);
         }
 
         public struct WordUsageData
