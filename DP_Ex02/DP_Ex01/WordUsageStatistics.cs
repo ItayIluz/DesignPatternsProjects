@@ -6,9 +6,21 @@ using FacebookWrapper;
 
 namespace DP_Ex02
 {
-    public class WordUsageStatistics
+    public class WordUsageStatistics : IFeature
     {
-        public static List<KeyValuePair<string, WordUsageData>> GetWordUsageStatisticsOfPosts(User i_User, DateTime i_StartDate, DateTime i_EndDate)
+        public User User { get; set; }
+        private List<KeyValuePair<string, WordUsageData>> m_Statistics = null;
+
+        public WordUsageStatistics()
+        {
+        }
+
+        public WordUsageStatistics(User i_User)
+        {
+            User = i_User;
+        }
+
+        public List<KeyValuePair<string, WordUsageData>> GetWordUsageStatisticsOfPosts(DateTime i_StartDate, DateTime i_EndDate)
         {
             Dictionary<string, WordUsageData> wordsUsageData = new Dictionary<string, WordUsageData>();
             string[] postWords;
@@ -17,7 +29,7 @@ namespace DP_Ex02
             Dictionary<string, bool> postInserted;
             bool postHasBeenInserted;
 
-            foreach(Post post in i_User.Posts)
+            foreach(Post post in User.Posts)
             {
                 if(post.CreatedTime < i_StartDate || post.CreatedTime > i_EndDate)
                 {
@@ -51,10 +63,10 @@ namespace DP_Ex02
                 }
             }
 
-            List<KeyValuePair<string, WordUsageData>> sortedWordUsageDate = wordsUsageData.ToList();
-            sortedWordUsageDate.Sort((pair1, pair2) => pair2.Value.OccurrencesCount.CompareTo(pair1.Value.OccurrencesCount));
+            m_Statistics = wordsUsageData.ToList();
+            m_Statistics.Sort((pair1, pair2) => pair2.Value.OccurrencesCount.CompareTo(pair1.Value.OccurrencesCount));
 
-            return sortedWordUsageDate;
+            return m_Statistics;
         }
 
         public struct WordUsageData

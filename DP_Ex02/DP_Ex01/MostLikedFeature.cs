@@ -3,32 +3,38 @@ using FacebookWrapper.ObjectModel;
 
 namespace DP_Ex02
 {
-    public class MostLikedFeature
+    public class MostLikedFeature : IFeature
     {
-        private User m_User = null;
-        public Dictionary<string, int> m_MostLikedFriends { get; }
-        public Dictionary<string, int> m_FriendsWhoLikesUserMost { get; }
+        public User User { get; set; }
+        public Dictionary<string, int> MostLikedFriends { get; }
+        public Dictionary<string, int> FriendsWhoLikesUserMost { get; }
+
+        public MostLikedFeature()
+        {
+            MostLikedFriends = new Dictionary<string, int>();
+            FriendsWhoLikesUserMost = new Dictionary<string, int>();
+        }
 
         public MostLikedFeature(User i_User)
         {
-            m_User = i_User;
-            m_MostLikedFriends = new Dictionary<string, int>();
-            m_FriendsWhoLikesUserMost = new Dictionary<string, int>();
+            User = i_User;
+            MostLikedFriends = new Dictionary<string, int>();
+            FriendsWhoLikesUserMost = new Dictionary<string, int>();
         }
 
         public void CalculateMostLikedFriends()
         {
-            m_MostLikedFriends.Clear();
-            foreach (User friend in m_User.Friends)
+            MostLikedFriends.Clear();
+            foreach (User friend in User.Friends)
             {
-                calculateMostLikedItemsForUser(m_MostLikedFriends, friend);
+                calculateMostLikedItemsForUser(MostLikedFriends, friend);
             }
         }
 
         public void CalculateFriendsWhoLikeUserMost()
         {
-            m_FriendsWhoLikesUserMost.Clear();
-            calculateMostLikedItemsForUser(m_FriendsWhoLikesUserMost, m_User);
+            FriendsWhoLikesUserMost.Clear();
+            calculateMostLikedItemsForUser(FriendsWhoLikesUserMost, User);
         }
 
         private void calculateMostLikedItemsForUser(Dictionary<string, int> i_Results, User i_User)

@@ -39,6 +39,7 @@ namespace DP_Ex02
         private LoginResult m_LoginResult;
         private User m_LoggedInUser = null;
         private MostLikedFeature m_MostLikedFeature;
+        private WordUsageStatistics m_WordUsageStatistics;
 
         public FacebookApplication()
         {
@@ -174,7 +175,7 @@ namespace DP_Ex02
                 showWordStatisticsButton.Enabled = false;
             }));
 
-            List<KeyValuePair<string, WordUsageStatistics.WordUsageData>> orderedWordsUsageData = WordUsageStatistics.GetWordUsageStatisticsOfPosts(m_LoggedInUser, startDatePicker.Value, endDatePicker.Value);
+            List<KeyValuePair<string, WordUsageStatistics.WordUsageData>> orderedWordsUsageData = m_WordUsageStatistics.GetWordUsageStatisticsOfPosts(startDatePicker.Value, endDatePicker.Value);
             wordUsageDataPanel.Invoke(new Action(() =>
             {
                 wordUsageDataPanel.Controls.Clear();
@@ -258,7 +259,7 @@ namespace DP_Ex02
             }));
 
             m_MostLikedFeature.CalculateMostLikedFriends();
-            populateDataGridViewForMostLikedFeature(dataGridViewFriendsUserLikesMost, m_MostLikedFeature.m_MostLikedFriends);
+            populateDataGridViewForMostLikedFeature(dataGridViewFriendsUserLikesMost, m_MostLikedFeature.MostLikedFriends);
             buttonCalculateFriendsUserLikesMost.Invoke(new Action(() =>
             {
                 buttonCalculateFriendsUserLikesMost.Enabled = true;
@@ -280,7 +281,7 @@ namespace DP_Ex02
             }));
 
             m_MostLikedFeature.CalculateFriendsWhoLikeUserMost();
-            populateDataGridViewForMostLikedFeature(dataGridViewFriendsWhoLikeUserMost, m_MostLikedFeature.m_FriendsWhoLikesUserMost);
+            populateDataGridViewForMostLikedFeature(dataGridViewFriendsWhoLikeUserMost, m_MostLikedFeature.FriendsWhoLikesUserMost);
             buttonCalculateMostLikedByFriends.Invoke(new Action(() =>
             {
                 buttonCalculateMostLikedByFriends.Enabled = true;

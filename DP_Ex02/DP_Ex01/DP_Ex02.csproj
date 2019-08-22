@@ -60,6 +60,8 @@
     <Compile Include="FBDataInitializer.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FeatureFactory.cs" />
+    <Compile Include="IFeature.cs" />
     <Compile Include="MostLikedFeature.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
