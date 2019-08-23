@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DP_Ex02
 {
-    public class FeatureFactory
+    public static class FeatureFactory
     {
         public enum eFeatures
         {
@@ -13,7 +13,7 @@ namespace DP_Ex02
             MostLiked,
         }
 
-        public static IFeature createFeature(eFeatures i_FeatureToCreate)
+        public static IFeature CreateFeature(eFeatures i_FeatureToCreate)
         {
             IFeature createdFeature = null;
             if(i_FeatureToCreate == eFeatures.WordUsageStatistics)

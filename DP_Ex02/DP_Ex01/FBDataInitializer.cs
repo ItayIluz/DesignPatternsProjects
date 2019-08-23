@@ -16,9 +16,9 @@ namespace DP_Ex02
             if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
             {
                 m_LoggedInUser = m_LoginResult.LoggedInUser;
-                m_MostLikedFeature = FeatureFactory.createFeature(FeatureFactory.eFeatures.MostLiked) as MostLikedFeature;
+                m_MostLikedFeature = FeatureFactory.CreateFeature(FeatureFactory.eFeatures.MostLiked) as MostLikedFeature;
                 m_MostLikedFeature.User = m_LoggedInUser;
-                m_WordUsageStatistics = FeatureFactory.createFeature(FeatureFactory.eFeatures.WordUsageStatistics) as WordUsageStatistics;
+                m_WordUsageStatistics = FeatureFactory.CreateFeature(FeatureFactory.eFeatures.WordUsageStatistics) as WordUsageStatistics;
                 m_WordUsageStatistics.User = m_LoggedInUser;
                 tabLoginLogout.Invoke(new Action(() => tabLoginLogout.Text = "Logout"));
                 buttonLoginLogout.Invoke(new Action(() => buttonLoginLogout.Text = "Logout"));
