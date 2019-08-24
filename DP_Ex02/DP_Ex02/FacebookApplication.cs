@@ -79,13 +79,14 @@ namespace DP_Ex02
 
         private void listBoxLatestsPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Post selectedPost = m_FBDataHandler.LoggedInUser.Posts[listBoxLatestsPosts.SelectedIndex];
-            if (selectedPost.Comments.Count > 0)
+            ExtendedPost selectedPost = m_FBDataHandler.ExtendedPosts[listBoxLatestsPosts.SelectedIndex];
+            extendedPostBindingSource.DataSource = selectedPost;
+            if (selectedPost.Post.Comments.Count > 0)
             {
                 listBoxLatestPostComments.Invoke(new Action(() =>
                 {
                     listBoxLatestPostComments.DisplayMember = "Message";
-                    listBoxLatestPostComments.DataSource = selectedPost.Comments;
+                    listBoxLatestPostComments.DataSource = selectedPost.Post.Comments;
                 }));
             }
             else
@@ -487,23 +488,23 @@ namespace DP_Ex02
 
             if (m_FBDataHandler.LoggedInUser.Posts.Count != 0)
             {
-                foreach (Post post in m_FBDataHandler.LoggedInUser.Posts)
+                foreach (ExtendedPost post in m_FBDataHandler.ExtendedPosts)
                 {
                     if(listBoxLatestsPosts.InvokeRequired)
                     {
                         listBoxLatestsPosts.Invoke(new Action(() =>
                         {
-                            if (post.Message != null)
+                            if (post.Post.Message != null)
                             {
-                                listBoxLatestsPosts.Items.Add(post.Message);
+                                listBoxLatestsPosts.Items.Add(post.Post.Message);
                             }
-                            else if (post.Caption != null)
+                            else if (post.Post.Caption != null)
                             {
-                                listBoxLatestsPosts.Items.Add(post.Caption);
+                                listBoxLatestsPosts.Items.Add(post.Post.Caption);
                             }
                             else
                             {
-                                listBoxLatestsPosts.Items.Add(string.Format("[{0}]", post.Type));
+                                listBoxLatestsPosts.Items.Add(string.Format("[{0}]", post.Post.Type));
                             }
                         }));
                     }

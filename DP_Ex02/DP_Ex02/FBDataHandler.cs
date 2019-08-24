@@ -45,6 +45,7 @@ namespace DP_Ex02
         public MostLikedFeature MostLikedFeature { get; private set; }
         public WordUsageStatistics WordUsageStatistics { get; private set; }
         public AppSettings AppSettings { get; private set; }
+        public List<ExtendedPost> ExtendedPosts { get; private set; }
 
         public static FBDataHandler Instance
         {
@@ -105,6 +106,7 @@ namespace DP_Ex02
             MostLikedFeature.User = LoggedInUser;
             WordUsageStatistics = FeatureFactory.CreateFeature(FeatureFactory.eFeatures.WordUsageStatistics) as WordUsageStatistics;
             WordUsageStatistics.User = LoggedInUser;
+            updateExtenededPosts();
         }
 
         public void LogoutFromFacebook(AfterLogoutToFacebook i_FuncAfterLogout)
@@ -139,6 +141,15 @@ namespace DP_Ex02
             }
 
             AppSettings.SaveToFile();
+        }
+
+        private void updateExtenededPosts()
+        {
+            ExtendedPosts = new List<ExtendedPost>();
+            foreach(Post post in LoggedInUser.Posts)
+            {
+                ExtendedPosts.Add(new ExtendedPost { Post = post, Favorite = false, Note = "" });
+            }
         }
     }
 }
