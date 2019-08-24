@@ -7,8 +7,8 @@
     <ProjectGuid>{E869B314-7FDC-4446-9712-FB45E8B1E4F3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DP_Ex01</RootNamespace>
-    <AssemblyName>DP_Ex01</AssemblyName>
+    <RootNamespace>DP_Ex02</RootNamespace>
+    <AssemblyName>DP_Ex02</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -57,9 +57,7 @@
     <Compile Include="FacebookApplication.Designer.cs">
       <DependentUpon>FacebookApplication.cs</DependentUpon>
     </Compile>
-    <Compile Include="FBDataInitializer.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="FBDataHandler.cs" />
     <Compile Include="FeatureFactory.cs" />
     <Compile Include="IFeature.cs" />
     <Compile Include="MostLikedFeature.cs" />
@@ -80,6 +78,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
