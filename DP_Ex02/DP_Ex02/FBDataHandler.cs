@@ -1,12 +1,7 @@
-﻿using FacebookWrapper;
-using FacebookWrapper.ObjectModel;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
+using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
 
 namespace DP_Ex02
 {
@@ -14,6 +9,26 @@ namespace DP_Ex02
     {
         private static readonly object sr_InstanceLock = new object();
         private static volatile FBDataHandler s_Instance;
+
+        public static FBDataHandler Instance
+        {
+            get
+            {
+                if (s_Instance == null)
+                {
+                    lock (sr_InstanceLock)
+                    {
+                        if (s_Instance == null)
+                        {
+                            s_Instance = new FBDataHandler();
+                        }
+                    }
+                }
+
+                return s_Instance;
+            }
+        }
+
         private readonly string r_AppID = "1450160541956417";
         private readonly string[] r_Permissions =
         {
@@ -46,25 +61,6 @@ namespace DP_Ex02
         public WordUsageStatistics WordUsageStatistics { get; private set; }
         public AppSettings AppSettings { get; private set; }
         public List<ExtendedPost> ExtendedPosts { get; private set; }
-
-        public static FBDataHandler Instance
-        {
-            get
-            {
-                if (s_Instance == null)
-                {
-                    lock (sr_InstanceLock)
-                    {
-                        if (s_Instance == null)
-                        {
-                            s_Instance = new FBDataHandler();
-                        }
-                    }
-                }
-
-                return s_Instance;
-            }
-        }
 
         private FBDataHandler()
         {

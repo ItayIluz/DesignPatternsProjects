@@ -3,9 +3,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
-using System.Threading;
 
 namespace DP_Ex02
 {
@@ -303,7 +303,6 @@ namespace DP_Ex02
 
         private void enableTabsControlsIfUserLoggedIn()
         {
-
             foreach (TabPage page in tabsControl.TabPages)
             {
                 if (page != tabLoginLogout)
@@ -538,7 +537,6 @@ namespace DP_Ex02
                     if (listBoxCheckins.InvokeRequired)
                     {
                         listBoxCheckins.Invoke(new Action(() => listBoxCheckins.Items.Add(checkin.Place.Name)));
-
                     }
                 }
             }
@@ -561,7 +559,6 @@ namespace DP_Ex02
                     listBoxLikedPages.DisplayMember = "Name";
                 }));
             }
-           
 
             if (m_FBDataHandler.LoggedInUser.LikedPages.Count != 0)
             {

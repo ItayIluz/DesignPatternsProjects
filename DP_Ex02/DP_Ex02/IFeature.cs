@@ -7,6 +7,5 @@ namespace DP_Ex02
 {
     public interface IFeature
     {
-
     }
 }
