@@ -202,19 +202,25 @@ namespace DP_Ex02
 
         private void runCalculateFriendsUserLikesMost()
         {
-            buttonCalculateFriendsUserLikesMost.Invoke(new Action(() =>
+            if (buttonCalculateFriendsUserLikesMost.InvokeRequired)
             {
-                buttonCalculateFriendsUserLikesMost.Text = "Fetching...";
-                buttonCalculateFriendsUserLikesMost.Enabled = false;
-            }));
+                buttonCalculateFriendsUserLikesMost.Invoke(new Action(() =>
+                {
+                    buttonCalculateFriendsUserLikesMost.Text = "Fetching...";
+                    buttonCalculateFriendsUserLikesMost.Enabled = false;
+                }));
+            }
 
             m_FBDataHandler.MostLikedFeature.CalculateMostLikedFriends();
             populateDataGridViewForMostLikedFeature(dataGridViewFriendsUserLikesMost, m_FBDataHandler.MostLikedFeature.MostLikedFriends);
-            buttonCalculateFriendsUserLikesMost.Invoke(new Action(() =>
+            if(buttonCalculateFriendsUserLikesMost.InvokeRequired)
             {
-                buttonCalculateFriendsUserLikesMost.Enabled = true;
-                buttonCalculateFriendsUserLikesMost.Text = "Fetch";
-            }));
+                buttonCalculateFriendsUserLikesMost.Invoke(new Action(() =>
+                {
+                    buttonCalculateFriendsUserLikesMost.Enabled = true;
+                    buttonCalculateFriendsUserLikesMost.Text = "Fetch";
+                }));
+            }
         }
 
         private void buttonCalculateFriendsWhoLikeUserMost_Click(object sender, EventArgs e)
@@ -224,19 +230,25 @@ namespace DP_Ex02
 
         private void runCalculateFriendsWhoLikeUserMost()
         {
-            buttonCalculateMostLikedByFriends.Invoke(new Action(() => 
+            if (buttonCalculateMostLikedByFriends.InvokeRequired)
             {
-                buttonCalculateMostLikedByFriends.Text = "Fetching...";
-                buttonCalculateMostLikedByFriends.Enabled = false;
-            }));
+                buttonCalculateMostLikedByFriends.Invoke(new Action(() =>
+                {
+                    buttonCalculateMostLikedByFriends.Text = "Fetching...";
+                    buttonCalculateMostLikedByFriends.Enabled = false;
+                }));
+            }
 
             m_FBDataHandler.MostLikedFeature.CalculateFriendsWhoLikeUserMost();
             populateDataGridViewForMostLikedFeature(dataGridViewFriendsWhoLikeUserMost, m_FBDataHandler.MostLikedFeature.FriendsWhoLikesUserMost);
-            buttonCalculateMostLikedByFriends.Invoke(new Action(() =>
+            if(buttonCalculateMostLikedByFriends.InvokeRequired)
             {
-                buttonCalculateMostLikedByFriends.Enabled = true;
-                buttonCalculateMostLikedByFriends.Text = "Fetch";
-            }));
+                buttonCalculateMostLikedByFriends.Invoke(new Action(() =>
+                {
+                    buttonCalculateMostLikedByFriends.Enabled = true;
+                    buttonCalculateMostLikedByFriends.Text = "Fetch";
+                }));
+            }
         }
 
         private void populateDataGridViewForMostLikedFeature(DataGridView i_GridViewToPopulate, Dictionary<string, int> i_DataSource)
@@ -245,12 +257,15 @@ namespace DP_Ex02
             {
                 List<KeyValuePair<string, int>> sortedResultList = i_DataSource.ToList();
                 sortedResultList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
-                i_GridViewToPopulate.Invoke(new Action(() => 
+                if(i_GridViewToPopulate.InvokeRequired)
                 {
-                    i_GridViewToPopulate.DataSource = sortedResultList;
-                    i_GridViewToPopulate.Columns[0].HeaderText = "Friend";
-                    i_GridViewToPopulate.Columns[1].HeaderText = "Total Likes";
-                }));
+                    i_GridViewToPopulate.Invoke(new Action(() =>
+                    {
+                        i_GridViewToPopulate.DataSource = sortedResultList;
+                        i_GridViewToPopulate.Columns[0].HeaderText = "Friend";
+                        i_GridViewToPopulate.Columns[1].HeaderText = "Total Likes";
+                    }));
+                }
             }
             else
             {

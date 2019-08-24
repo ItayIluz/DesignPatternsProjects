@@ -67,12 +67,12 @@ namespace DP_Ex02
 
         private FBDataHandler()
         {
-            AppSettings = AppSettings.Instance;
         }
 
         public void LoginToFacebookAndInitUserData(AfterLogoutToFacebook i_FuncToRunAfterConnecting)
         {
             LoginResult = FacebookService.Login(r_AppID, r_Permissions);
+            initUserData();
             i_FuncToRunAfterConnecting();
         }
 
@@ -88,6 +88,7 @@ namespace DP_Ex02
                 try
                 {
                     LoginResult = FacebookService.Connect(AppSettings.LastAccessToken);
+                    initUserData();
                     i_FuncToRunAfterConnecting();
                 }
                 catch (Facebook.WebExceptionWrapper exception)
@@ -118,9 +119,9 @@ namespace DP_Ex02
             });
         }
 
-        public AppSettings LoadAppSettingsFromFile()
+        public void LoadAppSettingsFromFile()
         {
-            return AppSettings.LoadFromFile();
+            AppSettings = AppSettings.LoadFromFile();
         }
 
         public void SaveAppSettingsToFile(Size i_WindowsSize, Point i_WindowLocation, bool i_RememberUser)
