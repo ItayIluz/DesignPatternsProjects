@@ -483,66 +483,95 @@ namespace DP_Ex02
             {
                 foreach (Post post in m_FBDataHandler.LoggedInUser.Posts)
                 {
-                    listBoxLatestsPosts.Invoke(new Action(() =>
+                    if(listBoxLatestsPosts.InvokeRequired)
                     {
-                        if (post.Message != null)
+                        listBoxLatestsPosts.Invoke(new Action(() =>
                         {
-                            listBoxLatestsPosts.Items.Add(post.Message);
-                        }
-                        else if (post.Caption != null)
-                        {
-                            listBoxLatestsPosts.Items.Add(post.Caption);
-                        }
-                        else
-                        {
-                            listBoxLatestsPosts.Items.Add(string.Format("[{0}]", post.Type));
-                        }
-                    }));
+                            if (post.Message != null)
+                            {
+                                listBoxLatestsPosts.Items.Add(post.Message);
+                            }
+                            else if (post.Caption != null)
+                            {
+                                listBoxLatestsPosts.Items.Add(post.Caption);
+                            }
+                            else
+                            {
+                                listBoxLatestsPosts.Items.Add(string.Format("[{0}]", post.Type));
+                            }
+                        }));
+                    }
                 }
 
-                listBoxLatestPostComments.Invoke(new Action(() => listBoxLatestPostComments.Items.Add("Click on a post to see its comments.")));
+                if (listBoxLatestsPosts.InvokeRequired)
+                {
+                    listBoxLatestPostComments.Invoke(new Action(() => listBoxLatestPostComments.Items.Add("Click on a post to see its comments.")));
+                }
             }
             else
             {
-                listBoxLatestsPosts.Invoke(new Action(() => listBoxLatestsPosts.Items.Add("No Posts to retrieve :(")));
+                if (listBoxLatestsPosts.InvokeRequired)
+                {
+                    listBoxLatestsPosts.Invoke(new Action(() => listBoxLatestsPosts.Items.Add("No Posts to retrieve :(")));
+                }
             }
         }
 
         private void fetchCheckins()
         {
-            listBoxCheckins.Invoke(new Action(() => listBoxCheckins.Items.Clear()));
+            if (listBoxCheckins.InvokeRequired)
+            {
+                listBoxCheckins.Invoke(new Action(() => listBoxCheckins.Items.Clear()));
+            }
 
             if (m_FBDataHandler.LoggedInUser.Checkins.Count != 0)
             {
                 foreach (Checkin checkin in m_FBDataHandler.LoggedInUser.Checkins)
                 {
-                    listBoxCheckins.Invoke(new Action(() => listBoxCheckins.Items.Add(checkin.Place.Name)));
+                    if (listBoxCheckins.InvokeRequired)
+                    {
+                        listBoxCheckins.Invoke(new Action(() => listBoxCheckins.Items.Add(checkin.Place.Name)));
+
+                    }
                 }
             }
             else
             {
-                listBoxCheckins.Invoke(new Action(() => listBoxCheckins.Items.Add("No Checkins to retrieve :(")));
+                if (listBoxCheckins.InvokeRequired)
+                {
+                    listBoxCheckins.Invoke(new Action(() => listBoxCheckins.Items.Add("No Checkins to retrieve :(")));
+                }
             }
         }
 
         private void fetchLikedPages()
         {
-            listBoxLikedPages.Invoke(new Action(() =>
+            if(listBoxLikedPages.InvokeRequired)
             {
-                listBoxLikedPages.Items.Clear();
-                listBoxLikedPages.DisplayMember = "Name";
-            }));
+                listBoxLikedPages.Invoke(new Action(() =>
+                {
+                    listBoxLikedPages.Items.Clear();
+                    listBoxLikedPages.DisplayMember = "Name";
+                }));
+            }
+           
 
             if (m_FBDataHandler.LoggedInUser.LikedPages.Count != 0)
             {
                 foreach (Page page in m_FBDataHandler.LoggedInUser.LikedPages)
                 {
-                    listBoxLikedPages.Invoke(new Action(() => listBoxLikedPages.Items.Add(page)));
+                    if (listBoxLikedPages.InvokeRequired)
+                    {
+                        listBoxLikedPages.Invoke(new Action(() => listBoxLikedPages.Items.Add(page)));
+                    }
                 }
             }
             else
             {
-                listBoxLikedPages.Invoke(new Action(() => listBoxLikedPages.Items.Add("No liked pages to retrieve :(")));
+                if (listBoxLikedPages.InvokeRequired)
+                {
+                    listBoxLikedPages.Invoke(new Action(() => listBoxLikedPages.Items.Add("No liked pages to retrieve :(")));
+                }
             }
         }
     }
