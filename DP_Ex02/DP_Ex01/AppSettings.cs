@@ -42,19 +42,9 @@ namespace DP_Ex02
             LastAccessToken = null;
         }
 
-        public static AppSettings GetInstance()
-        {
-            if (s_Instance == null)
-            {
-                s_Instance = new AppSettings();
-            }
-
-            return s_Instance;
-        }
-
         public static AppSettings LoadFromFile()
         {
-            AppSettings appSettings = GetInstance();
+            AppSettings appSettings = Instance;
             if (File.Exists(sr_FilePath))
             {
                 using (Stream stream = new FileStream(sr_FilePath, FileMode.Open))
