@@ -14,6 +14,7 @@ namespace DP_Ex02
         private readonly string r_WelcomeMessage = "Hello! Please login to Facebook";
         private readonly string r_ConnectionErrorMessage = "Error - Could not connect to facebook.";
         private FBDataHandler m_FBDataHandler;
+        private Thread m_InitializingThread;
 
         public FacebookApplication()
         {
@@ -37,7 +38,8 @@ namespace DP_Ex02
 
             try
             {
-                m_FBDataHandler.ConnectToFacebookIfThereIsAnAccessTokenAndInitUserData(() => new Thread(initializeUserData).Start());
+                m_InitializingThread = new Thread(initializeUserData);
+                m_FBDataHandler.ConnectToFacebookIfThereIsAnAccessTokenAndInitUserData(() => m_InitializingThread.Start());
             }
             catch (Facebook.WebExceptionWrapper exception)
             {
@@ -47,6 +49,9 @@ namespace DP_Ex02
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            // Wait for initializing thread to finish in case the user closed the application when other operations did not finish
+            m_InitializingThread.Join();
+
             base.OnFormClosing(e);
 
             m_FBDataHandler.SaveAppSettingsToFile(this.Size, this.Location, this.checkboxRememberMe.Checked);
@@ -67,7 +72,8 @@ namespace DP_Ex02
             }
             else
             {
-                m_FBDataHandler.LoginToFacebookAndInitUserData(() => new Thread(initializeUserData).Start());
+                m_InitializingThread = new Thread(initializeUserData);
+                m_FBDataHandler.LoginToFacebookAndInitUserData(() => m_InitializingThread.Start());
             }
         }
 
