@@ -30,6 +30,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label favoriteLabel;
+            System.Windows.Forms.Label noteLabel;
+            System.Windows.Forms.Label messageLabel;
             this.pictureBoxFeed = new System.Windows.Forms.PictureBox();
             this.tabsControl = new System.Windows.Forms.TabControl();
             this.tabLoginLogout = new System.Windows.Forms.TabPage();
@@ -90,7 +93,13 @@
             this.labelFriendsWhoLikeUserMost = new System.Windows.Forms.Label();
             this.dataGridViewFriendsUserLikesMost = new System.Windows.Forms.DataGridView();
             this.dataGridViewFriendsWhoLikeUserMost = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.favoriteCheckBox = new System.Windows.Forms.CheckBox();
+            this.noteTextBox = new System.Windows.Forms.TextBox();
+            this.messageTextBox = new System.Windows.Forms.TextBox();
+            this.extendedPostBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            favoriteLabel = new System.Windows.Forms.Label();
+            noteLabel = new System.Windows.Forms.Label();
+            messageLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFeed)).BeginInit();
             this.tabsControl.SuspendLayout();
             this.tabLoginLogout.SuspendLayout();
@@ -111,6 +120,7 @@
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriendsUserLikesMost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriendsWhoLikeUserMost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.extendedPostBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxFeed
@@ -212,6 +222,7 @@
             // 
             // tabFeed
             // 
+            this.tabFeed.AutoScroll = true;
             this.tabFeed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(89)))), ((int)(((byte)(152)))));
             this.tabFeed.Controls.Add(this.panel5);
             this.tabFeed.Location = new System.Drawing.Point(4, 24);
@@ -226,6 +237,12 @@
             // 
             this.panel5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel5.BackColor = System.Drawing.Color.White;
+            this.panel5.Controls.Add(messageLabel);
+            this.panel5.Controls.Add(this.messageTextBox);
+            this.panel5.Controls.Add(favoriteLabel);
+            this.panel5.Controls.Add(this.favoriteCheckBox);
+            this.panel5.Controls.Add(noteLabel);
+            this.panel5.Controls.Add(this.noteTextBox);
             this.panel5.Controls.Add(this.textBoxPostStatus);
             this.panel5.Controls.Add(this.listBoxLatestPostComments);
             this.panel5.Controls.Add(this.pictureBoxFeed);
@@ -235,7 +252,7 @@
             this.panel5.Controls.Add(this.buttonPostStatus);
             this.panel5.Location = new System.Drawing.Point(94, -4);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(830, 515);
+            this.panel5.Size = new System.Drawing.Size(830, 516);
             this.panel5.TabIndex = 15;
             // 
             // textBoxPostStatus
@@ -252,10 +269,10 @@
             // 
             this.listBoxLatestPostComments.FormattingEnabled = true;
             this.listBoxLatestPostComments.ItemHeight = 15;
-            this.listBoxLatestPostComments.Location = new System.Drawing.Point(419, 162);
+            this.listBoxLatestPostComments.Location = new System.Drawing.Point(419, 312);
             this.listBoxLatestPostComments.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxLatestPostComments.Name = "listBoxLatestPostComments";
-            this.listBoxLatestPostComments.Size = new System.Drawing.Size(344, 334);
+            this.listBoxLatestPostComments.Size = new System.Drawing.Size(344, 184);
             this.listBoxLatestPostComments.TabIndex = 14;
             // 
             // listBoxLatestsPosts
@@ -818,10 +835,63 @@
             this.dataGridViewFriendsWhoLikeUserMost.Size = new System.Drawing.Size(285, 340);
             this.dataGridViewFriendsWhoLikeUserMost.TabIndex = 0;
             // 
-            // contextMenuStrip1
+            // favoriteLabel
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            favoriteLabel.AutoSize = true;
+            favoriteLabel.Location = new System.Drawing.Point(416, 196);
+            favoriteLabel.Name = "favoriteLabel";
+            favoriteLabel.Size = new System.Drawing.Size(53, 15);
+            favoriteLabel.TabIndex = 14;
+            favoriteLabel.Text = "Favorite:";
+            // 
+            // favoriteCheckBox
+            // 
+            this.favoriteCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.extendedPostBindingSource, "Favorite", true));
+            this.favoriteCheckBox.Location = new System.Drawing.Point(476, 192);
+            this.favoriteCheckBox.Name = "favoriteCheckBox";
+            this.favoriteCheckBox.Size = new System.Drawing.Size(16, 24);
+            this.favoriteCheckBox.TabIndex = 15;
+            this.favoriteCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // noteLabel
+            // 
+            noteLabel.AutoSize = true;
+            noteLabel.Location = new System.Drawing.Point(416, 225);
+            noteLabel.Name = "noteLabel";
+            noteLabel.Size = new System.Drawing.Size(35, 15);
+            noteLabel.TabIndex = 16;
+            noteLabel.Text = "Note:";
+            // 
+            // noteTextBox
+            // 
+            this.noteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.extendedPostBindingSource, "Note", true));
+            this.noteTextBox.Location = new System.Drawing.Point(475, 222);
+            this.noteTextBox.Multiline = true;
+            this.noteTextBox.Name = "noteTextBox";
+            this.noteTextBox.Size = new System.Drawing.Size(288, 70);
+            this.noteTextBox.TabIndex = 17;
+            // 
+            // messageLabel
+            // 
+            messageLabel.AutoSize = true;
+            messageLabel.Location = new System.Drawing.Point(416, 166);
+            messageLabel.Name = "messageLabel";
+            messageLabel.Size = new System.Drawing.Size(58, 15);
+            messageLabel.TabIndex = 17;
+            messageLabel.Text = "Post Text:";
+            // 
+            // messageTextBox
+            // 
+            this.messageTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.extendedPostBindingSource, "Post.Message", true));
+            this.messageTextBox.Location = new System.Drawing.Point(476, 163);
+            this.messageTextBox.Name = "messageTextBox";
+            this.messageTextBox.ReadOnly = true;
+            this.messageTextBox.Size = new System.Drawing.Size(287, 23);
+            this.messageTextBox.TabIndex = 18;
+            // 
+            // extendedPostBindingSource
+            // 
+            this.extendedPostBindingSource.DataSource = typeof(DP_Ex02.ExtendedPost);
             // 
             // FacebookApplication
             // 
@@ -860,6 +930,7 @@
             this.panel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriendsUserLikesMost)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriendsWhoLikeUserMost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.extendedPostBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -911,7 +982,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.FlowLayoutPanel wordUsagePostsPanel;
         private System.Windows.Forms.FlowLayoutPanel wordUsageDataPanel;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel3;
@@ -926,5 +996,9 @@
         private System.Windows.Forms.Label labelFriendsUserLikesMost;
         private System.Windows.Forms.Button buttonCalculateFriendsUserLikesMost;
         private System.Windows.Forms.Button buttonCalculateMostLikedByFriends;
+        private System.Windows.Forms.TextBox messageTextBox;
+        private System.Windows.Forms.BindingSource extendedPostBindingSource;
+        private System.Windows.Forms.CheckBox favoriteCheckBox;
+        private System.Windows.Forms.TextBox noteTextBox;
     }
 }
