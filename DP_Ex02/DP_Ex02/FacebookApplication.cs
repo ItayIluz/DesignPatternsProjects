@@ -50,7 +50,10 @@ namespace DP_Ex02
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             // Wait for initializing thread to finish in case the user closed the application when other operations did not finish
-            m_InitializingThread.Join();
+            if(m_InitializingThread.ThreadState.Equals(ThreadState.Running))
+            {
+                m_InitializingThread.Join();
+            }
 
             base.OnFormClosing(e);
 
