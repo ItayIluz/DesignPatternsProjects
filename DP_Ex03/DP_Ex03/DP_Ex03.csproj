@@ -51,7 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
-    <Compile Include="ExtendedPost.cs" />
+    <Compile Include="CoreExtendedPost.cs" />
+    <Compile Include="PostExtender.cs" />
+    <Compile Include="PostExtenderFavorite.cs" />
+    <Compile Include="PostExtenderNote.cs" />
     <Compile Include="FacebookApplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +64,7 @@
     <Compile Include="FBDataHandler.cs" />
     <Compile Include="FeatureFactory.cs" />
     <Compile Include="IFeature.cs" />
+    <Compile Include="IPostExtender.cs" />
     <Compile Include="MostLikedFeature.cs" />
     <Compile Include="PostLoginStrategy.cs" />
     <Compile Include="PostLogoutStrategy.cs" />
@@ -83,8 +87,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Properties\DataSources\ExtendedPost.datasource" />
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Post.datasource" />
+    <None Include="Properties\DataSources\PostExtenderFavorite.datasource" />
+    <None Include="Properties\DataSources\PostExtenderNote.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

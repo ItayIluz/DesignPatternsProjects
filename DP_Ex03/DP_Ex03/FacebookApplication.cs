@@ -84,20 +84,25 @@ namespace DP_Ex03
 
         private void listBoxLatestsPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ExtendedPost selectedPost = m_FBDataHandler.ExtendedPosts[listBoxLatestsPosts.SelectedIndex];
-            extendedPostBindingSource.DataSource = selectedPost;
-            if (selectedPost.Post.Comments.Count > 0)
+            PostExtender selectedPost = m_FBDataHandler.ExtendedPosts[listBoxLatestsPosts.SelectedIndex] as PostExtender;
+            Post post = selectedPost.GetCorePost();
+            postExtenderFavoriteBindingSource.DataSource = selectedPost;
+            postExtenderNoteBindingSource.DataSource = selectedPost.ExtraPostExtender;
+            postBindingSource.DataSource = post;
+
+            if (post != null && post.Comments.Count > 0)
             {
                 listBoxLatestPostComments.Invoke(new Action(() =>
                 {
                     listBoxLatestPostComments.DisplayMember = "Message";
-                    listBoxLatestPostComments.DataSource = selectedPost.Post.Comments;
+                    listBoxLatestPostComments.DataSource = post.Comments;
                 }));
             }
             else
             {
                 listBoxLatestPostComments.Invoke(new Action(() =>
                 {
+                    listBoxLatestPostComments.DataSource = null;
                     listBoxLatestPostComments.Items.Clear();
                     listBoxLatestPostComments.Items.Add("No comments.");
                 }));
@@ -492,25 +497,29 @@ namespace DP_Ex03
 
             if (m_FBDataHandler.LoggedInUser.Posts.Count != 0)
             {
-                foreach (ExtendedPost post in m_FBDataHandler.ExtendedPosts)
+                foreach (PostExtender extendedPost in m_FBDataHandler.ExtendedPosts)
                 {
-                    if(listBoxLatestsPosts.InvokeRequired)
+                    Post post = extendedPost.GetCorePost();
+                    if(post != null)
                     {
-                        listBoxLatestsPosts.Invoke(new Action(() =>
+                        if (listBoxLatestsPosts.InvokeRequired)
                         {
-                            if (post.Post.Message != null)
+                            listBoxLatestsPosts.Invoke(new Action(() =>
                             {
-                                listBoxLatestsPosts.Items.Add(post.Post.Message);
-                            }
-                            else if (post.Post.Caption != null)
-                            {
-                                listBoxLatestsPosts.Items.Add(post.Post.Caption);
-                            }
-                            else
-                            {
-                                listBoxLatestsPosts.Items.Add(string.Format("[{0}]", post.Post.Type));
-                            }
-                        }));
+                                if (post.Message != null)
+                                {
+                                    listBoxLatestsPosts.Items.Add(post.Message);
+                                }
+                                else if (post.Caption != null)
+                                {
+                                    listBoxLatestsPosts.Items.Add(post.Caption);
+                                }
+                                else
+                                {
+                                    listBoxLatestsPosts.Items.Add(string.Format("[{0}]", post.Type));
+                                }
+                            }));
+                        }
                     }
                 }
 
@@ -582,6 +591,11 @@ namespace DP_Ex03
                     listBoxLikedPages.Invoke(new Action(() => listBoxLikedPages.Items.Add("No liked pages to retrieve :(")));
                 }
             }
+        }
+
+        private void extendedPostBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

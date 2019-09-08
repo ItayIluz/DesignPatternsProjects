@@ -59,7 +59,7 @@ namespace DP_Ex03
         public MostLikedFeature MostLikedFeature { get; private set; }
         public WordUsageStatistics WordUsageStatistics { get; private set; }
         public AppSettings AppSettings { get; private set; }
-        public List<ExtendedPost> ExtendedPosts { get; private set; }
+        public List<IPostExtender> ExtendedPosts { get; private set; }
 
         private FBDataHandler()
         {
@@ -140,10 +140,10 @@ namespace DP_Ex03
 
         private void updateExtenededPosts()
         {
-            ExtendedPosts = new List<ExtendedPost>();
+            ExtendedPosts = new List<IPostExtender>();
             foreach(Post post in LoggedInUser.Posts)
             {
-                ExtendedPosts.Add(new ExtendedPost { Post = post, Favorite = false, Note = "" });
+                ExtendedPosts.Add(new PostExtenderFavorite(new PostExtenderNote(new CoreExtendedPost() { Post = post })));
             }
         }
     }

@@ -7,10 +7,13 @@ using FacebookWrapper;
 
 namespace DP_Ex03
 {
-    public class ExtendedPost
+    public class CoreExtendedPost : IPostExtender
     {
         public Post Post { get; set; }
-        public string Note { get; set; }
-        public bool Favorite { get; set; }
+
+        public void updateDataToServer()
+        {
+            // Here will be code to update new data to the server
+        }
     }
 }
