@@ -69,7 +69,7 @@ namespace DP_Ex03
         {
             LoginResult = FacebookService.Login(r_AppID, r_Permissions);
             initUserData();
-            i_PostLoginStrategy.AfterLoginToFacebook(LoginResult);
+            i_PostLoginStrategy.CallFunction(LoginResult);
         }
 
         public bool isExsitingAccessToken()
@@ -85,7 +85,7 @@ namespace DP_Ex03
                 {
                     LoginResult = FacebookService.Connect(AppSettings.LastAccessToken);
                     initUserData();
-                    i_PostLoginStrategy.AfterLoginToFacebook(LoginResult);
+                    i_PostLoginStrategy.CallFunction(LoginResult);
                 }
                 catch (Facebook.WebExceptionWrapper exception)
                 {
@@ -112,7 +112,7 @@ namespace DP_Ex03
                 LoginResult = null;
                 WordUsageStatistics = null;
                 MostLikedFeature = null;
-                i_PostLogoutStrategy.AfterLogoutToFacebook();
+                i_PostLogoutStrategy.CallFunction();
             });
         }
 

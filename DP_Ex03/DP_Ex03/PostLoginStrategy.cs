@@ -1,13 +1,20 @@
 ﻿using FacebookWrapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace DP_Ex03
 {
-    public interface PostLoginStrategy
+    public class PostLoginStrategy
     {
-        void AfterLoginToFacebook(LoginResult i_LoginResult);
+        public Action<LoginResult> FunctionToCall { get; set; }
+
+        public PostLoginStrategy(Action<LoginResult> i_Function)
+        {
+            FunctionToCall = i_Function;
+        }
+
+        public void CallFunction(LoginResult i_LoginResult)
+        {
+            FunctionToCall(i_LoginResult);
+        }
     }
 }

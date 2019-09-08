@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FacebookWrapper;
+using System;
 
 namespace DP_Ex03
 {
-    public interface PostLogoutStrategy
+    public class PostLogoutStrategy
     {
-        void AfterLogoutToFacebook();
+        public Action FunctionToCall { get; set; }
+
+        public PostLogoutStrategy(Action i_Function)
+        {
+            FunctionToCall = i_Function;
+        }
+
+        public void CallFunction()
+        {
+            FunctionToCall();
+        }
     }
 }

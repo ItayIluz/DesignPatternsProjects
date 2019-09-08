@@ -39,7 +39,7 @@ namespace DP_Ex03
             try
             {
                 m_InitializingThread = new Thread(initializeUserData);
-                m_FBDataHandler.ConnectToFacebookIfThereIsAnAccessTokenAndInitUserData(() => m_InitializingThread.Start());
+                m_FBDataHandler.ConnectToFacebookIfThereIsAnAccessTokenAndInitUserData(new PostLoginStrategy((i_LoginResult) => m_InitializingThread.Start()));
             }
             catch (Facebook.WebExceptionWrapper exception)
             {
@@ -64,20 +64,22 @@ namespace DP_Ex03
         {
             if (m_FBDataHandler.LoggedInUser != null)
             {
-                m_FBDataHandler.LogoutFromFacebook(() =>
-                {
-                    tabLoginLogout.Text = "Login";
-                    buttonLoginLogout.Text = "Login";
-                    checkboxRememberMe.Show();
-                    labelWelcome.Text = r_WelcomeMessage;
-                    enableTabsControlsIfUserLoggedIn();
-                });
+                m_FBDataHandler.LogoutFromFacebook(new PostLogoutStrategy(postLogoutAction));
             }
             else
             {
                 m_InitializingThread = new Thread(initializeUserData);
-                m_FBDataHandler.LoginToFacebookAndInitUserData(() => m_InitializingThread.Start());
+                m_FBDataHandler.LoginToFacebookAndInitUserData(new PostLoginStrategy((i_LoginResult) => m_InitializingThread.Start()));
             }
+        }
+
+        private void postLogoutAction()
+        {
+            tabLoginLogout.Text = "Login";
+            buttonLoginLogout.Text = "Login";
+            checkboxRememberMe.Show();
+            labelWelcome.Text = r_WelcomeMessage;
+            enableTabsControlsIfUserLoggedIn();
         }
 
         private void listBoxLatestsPosts_SelectedIndexChanged(object sender, EventArgs e)
