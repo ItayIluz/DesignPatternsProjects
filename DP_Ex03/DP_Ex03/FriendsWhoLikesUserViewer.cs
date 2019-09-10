@@ -31,8 +31,8 @@ namespace DP_Ex03
             GridView.DataSource = m_BindingSource;
             m_BindingSource.DataSource = i_DataStructure;
             GridView.Columns[0].HeaderText = "Friend";
-            GridView.Columns[1].HeaderText = "Post Likes";
-            GridView.Columns[2].HeaderText = "Comment Likes";
+            GridView.Columns[1].HeaderText = "Posts Likes";
+            GridView.Columns[2].HeaderText = "Comments Likes";
         }
     }
 }
