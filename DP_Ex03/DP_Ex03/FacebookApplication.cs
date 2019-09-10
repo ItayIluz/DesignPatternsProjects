@@ -217,77 +217,21 @@ namespace DP_Ex03
             new Thread(runCalculateFriendsUserLikesMost).Start();
         }
 
-        private void runCalculateFriendsUserLikesMost()
-        {
-            if (buttonCalculateFriendsUserLikesMost.InvokeRequired)
-            {
-                buttonCalculateFriendsUserLikesMost.Invoke(new Action(() =>
-                {
-                    buttonCalculateFriendsUserLikesMost.Text = "Fetching...";
-                    buttonCalculateFriendsUserLikesMost.Enabled = false;
-                }));
-            }
-
-            m_FBDataHandler.MostLikedFeature.CalculateMostLikedFriends();
-            populateDataGridViewForMostLikedFeature(dataGridViewFriendsUserLikesMost, m_FBDataHandler.MostLikedFeature.MostLikedFriends);
-            if(buttonCalculateFriendsUserLikesMost.InvokeRequired)
-            {
-                buttonCalculateFriendsUserLikesMost.Invoke(new Action(() =>
-                {
-                    buttonCalculateFriendsUserLikesMost.Enabled = true;
-                    buttonCalculateFriendsUserLikesMost.Text = "Fetch";
-                }));
-            }
-        }
-
         private void buttonCalculateFriendsWhoLikeUserMost_Click(object sender, EventArgs e)
         {
             new Thread(runCalculateFriendsWhoLikeUserMost).Start();
         }
 
-        private void runCalculateFriendsWhoLikeUserMost()
+        private void runCalculateFriendsUserLikesMost()
         {
-            if (buttonCalculateMostLikedByFriends.InvokeRequired)
-            {
-                buttonCalculateMostLikedByFriends.Invoke(new Action(() =>
-                {
-                    buttonCalculateMostLikedByFriends.Text = "Fetching...";
-                    buttonCalculateMostLikedByFriends.Enabled = false;
-                }));
-            }
-
-            m_FBDataHandler.MostLikedFeature.CalculateFriendsWhoLikeUserMost();
-            populateDataGridViewForMostLikedFeature(dataGridViewFriendsWhoLikeUserMost, m_FBDataHandler.MostLikedFeature.FriendsWhoLikesUserMost);
-            if(buttonCalculateMostLikedByFriends.InvokeRequired)
-            {
-                buttonCalculateMostLikedByFriends.Invoke(new Action(() =>
-                {
-                    buttonCalculateMostLikedByFriends.Enabled = true;
-                    buttonCalculateMostLikedByFriends.Text = "Fetch";
-                }));
-            }
+            MostLikedFriendsViewer viewer = new MostLikedFriendsViewer(dataGridViewFriendsUserLikesMost, buttonCalculateFriendsUserLikesMost, m_FBDataHandler.MostLikedFeature);
+            viewer.populateGridView();
         }
 
-        private void populateDataGridViewForMostLikedFeature(DataGridView i_GridViewToPopulate, Dictionary<string, int> i_DataSource)
+        private void runCalculateFriendsWhoLikeUserMost()
         {
-            if(i_DataSource.Count != 0)
-            {
-                List<KeyValuePair<string, int>> sortedResultList = i_DataSource.ToList();
-                sortedResultList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
-                if(i_GridViewToPopulate.InvokeRequired)
-                {
-                    i_GridViewToPopulate.Invoke(new Action(() =>
-                    {
-                        i_GridViewToPopulate.DataSource = sortedResultList;
-                        i_GridViewToPopulate.Columns[0].HeaderText = "Friend";
-                        i_GridViewToPopulate.Columns[1].HeaderText = "Total Likes";
-                    }));
-                }
-            }
-            else
-            {
-                MessageBox.Show("No data found :(");
-            }
+            FriendsWhoLikesUserViewer viewer = new FriendsWhoLikesUserViewer(dataGridViewFriendsWhoLikeUserMost, buttonCalculateMostLikedByFriends, m_FBDataHandler.MostLikedFeature);
+            viewer.populateGridView();
         }
 
         private void initializeUserData()

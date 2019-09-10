@@ -52,6 +52,9 @@
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
     <Compile Include="CoreExtendedPost.cs" />
+    <Compile Include="FriendsWhoLikesUserViewer.cs" />
+    <Compile Include="MostLikedFeatureViewer.cs" />
+    <Compile Include="MostLikedFriendsViewer.cs" />
     <Compile Include="PostExtender.cs" />
     <Compile Include="PostExtenderFavorite.cs" />
     <Compile Include="PostExtenderNote.cs" />
