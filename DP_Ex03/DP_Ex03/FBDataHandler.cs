@@ -52,8 +52,6 @@ namespace DP_Ex03
             "user_hometown"
         };
 
-        public delegate void AfterLoginToFacebook();
-
         public LoginResult LoginResult { get; private set; }
         public User LoggedInUser { get; private set; }
         public MostLikedFeature MostLikedFeature { get; private set; }
