@@ -13,9 +13,9 @@ namespace DP_Ex03
             Note = string.Empty;
         }
 
-        public override void updateDataToServer()
+        public override void UpdateDataToServer()
         {
-            ExtraPostExtender.updateDataToServer();
+            ExtraPostExtender.UpdateDataToServer();
             // Here will be extra code to update the post's note data
         }
 

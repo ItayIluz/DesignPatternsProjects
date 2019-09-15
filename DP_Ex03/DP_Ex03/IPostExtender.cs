@@ -7,6 +7,6 @@ namespace DP_Ex03
 {
     public interface IPostExtender
     {
-        void updateDataToServer();
+        void UpdateDataToServer();
     }
 }

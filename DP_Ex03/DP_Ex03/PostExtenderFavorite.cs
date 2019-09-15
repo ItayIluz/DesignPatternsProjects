@@ -7,16 +7,16 @@ namespace DP_Ex03
 {
     public class PostExtenderFavorite : PostExtender
     {
-        public bool Favorite { get; set; }
+        public bool IsFavorite { get; set; }
 
         public PostExtenderFavorite(IPostExtender i_PostExtender) : base(i_PostExtender)
         {
-            Favorite = false;
+            IsFavorite = false;
         }
 
-        public override void updateDataToServer()
+        public override void UpdateDataToServer()
         {
-            ExtraPostExtender.updateDataToServer();
+            ExtraPostExtender.UpdateDataToServer();
             // Here will be extra code to update the post's favorite data
         }
 

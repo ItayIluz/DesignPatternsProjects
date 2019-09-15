@@ -11,9 +11,9 @@ namespace DP_Ex03
             ExtraPostExtender = i_PostExtender;
         }
 
-        public virtual void updateDataToServer()
+        public virtual void UpdateDataToServer()
         {
-            ExtraPostExtender.updateDataToServer();
+            ExtraPostExtender.UpdateDataToServer();
         }
 
         public Post GetCorePost()

@@ -69,8 +69,8 @@
     <Compile Include="IFeature.cs" />
     <Compile Include="IPostExtender.cs" />
     <Compile Include="MostLikedFeature.cs" />
-    <Compile Include="PostLoginStrategy.cs" />
-    <Compile Include="PostLogoutStrategy.cs" />
+    <Compile Include="AfterLoginStrategy.cs" />
+    <Compile Include="AfterLogoutStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WordUsageDataPanel.cs">

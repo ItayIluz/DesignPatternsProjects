@@ -65,11 +65,11 @@ namespace DP_Ex03
         {
         }
 
-        public void LoginToFacebookAndInitUserData(PostLoginStrategy i_PostLoginStrategy)
+        public void LoginToFacebookAndInitUserData(AfterLoginStrategy i_AfterLoginStrategy)
         {
             LoginResult = FacebookService.Login(r_AppID, r_Permissions);
             initUserData();
-            i_PostLoginStrategy.CallFunction(LoginResult);
+            i_AfterLoginStrategy.CallFunction(LoginResult);
         }
 
         public bool isExsitingAccessToken()
@@ -77,7 +77,7 @@ namespace DP_Ex03
             return AppSettings.RememberUser && !string.IsNullOrEmpty(AppSettings.LastAccessToken);
         }
 
-        public void ConnectToFacebookIfThereIsAnAccessTokenAndInitUserData(PostLoginStrategy i_PostLoginStrategy)
+        public void ConnectToFacebookIfThereIsAnAccessTokenAndInitUserData(AfterLoginStrategy i_AfterLoginStrategy)
         {
             if (isExsitingAccessToken())
             {
@@ -85,7 +85,7 @@ namespace DP_Ex03
                 {
                     LoginResult = FacebookService.Connect(AppSettings.LastAccessToken);
                     initUserData();
-                    i_PostLoginStrategy.CallFunction(LoginResult);
+                    i_AfterLoginStrategy.CallFunction(LoginResult);
                 }
                 catch (Facebook.WebExceptionWrapper exception)
                 {
@@ -104,7 +104,7 @@ namespace DP_Ex03
             updateExtenededPosts();
         }
 
-        public void LogoutFromFacebook(PostLogoutStrategy i_PostLogoutStrategy)
+        public void LogoutFromFacebook(AfterLogoutStrategy i_AfterLogoutStrategy)
         {
             FacebookService.Logout(() =>
             {
@@ -112,7 +112,7 @@ namespace DP_Ex03
                 LoginResult = null;
                 WordUsageStatistics = null;
                 MostLikedFeature = null;
-                i_PostLogoutStrategy.CallFunction();
+                i_AfterLogoutStrategy.CallFunction();
             });
         }
 

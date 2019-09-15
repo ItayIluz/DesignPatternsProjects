@@ -11,7 +11,7 @@ namespace DP_Ex03
     {
         public Post Post { get; set; }
 
-        public void updateDataToServer()
+        public void UpdateDataToServer()
         {
             // Here will be code to update new data to the server
         }

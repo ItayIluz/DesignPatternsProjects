@@ -1,13 +1,13 @@
-﻿using FacebookWrapper;
-using System;
+﻿using System;
+using FacebookWrapper;
 
 namespace DP_Ex03
 {
-    public class PostLoginStrategy
+    public class AfterLoginStrategy
     {
         public Action<LoginResult> FunctionToCall { get; set; }
 
-        public PostLoginStrategy(Action<LoginResult> i_Function)
+        public AfterLoginStrategy(Action<LoginResult> i_Function)
         {
             FunctionToCall = i_Function;
         }

@@ -39,7 +39,7 @@ namespace DP_Ex03
             try
             {
                 m_InitializingThread = new Thread(initializeUserData);
-                m_FBDataHandler.ConnectToFacebookIfThereIsAnAccessTokenAndInitUserData(new PostLoginStrategy((i_LoginResult) => m_InitializingThread.Start()));
+                m_FBDataHandler.ConnectToFacebookIfThereIsAnAccessTokenAndInitUserData(new AfterLoginStrategy((i_LoginResult) => m_InitializingThread.Start()));
             }
             catch (Facebook.WebExceptionWrapper exception)
             {
@@ -64,12 +64,12 @@ namespace DP_Ex03
         {
             if (m_FBDataHandler.LoggedInUser != null)
             {
-                m_FBDataHandler.LogoutFromFacebook(new PostLogoutStrategy(postLogoutAction));
+                m_FBDataHandler.LogoutFromFacebook(new AfterLogoutStrategy(postLogoutAction));
             }
             else
             {
                 m_InitializingThread = new Thread(initializeUserData);
-                m_FBDataHandler.LoginToFacebookAndInitUserData(new PostLoginStrategy((i_LoginResult) => m_InitializingThread.Start()));
+                m_FBDataHandler.LoginToFacebookAndInitUserData(new AfterLoginStrategy((i_LoginResult) => m_InitializingThread.Start()));
             }
         }
 
@@ -535,11 +535,6 @@ namespace DP_Ex03
                     listBoxLikedPages.Invoke(new Action(() => listBoxLikedPages.Items.Add("No liked pages to retrieve :(")));
                 }
             }
-        }
-
-        private void extendedPostBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

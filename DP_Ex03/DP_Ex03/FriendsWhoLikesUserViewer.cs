@@ -21,8 +21,7 @@ namespace DP_Ex03
 
             // Sort in descending order by total number of liked posts AND comments
             MostLikedFeatureObject.FriendsWhoLikesUserMost.Sort((friend1, friend2) => 
-                (friend2.LikedPosts + friend2.LikedComments).CompareTo(friend1.LikedPosts + friend1.LikedComments)
-            );
+                (friend2.LikedPosts + friend2.LikedComments).CompareTo(friend1.LikedPosts + friend1.LikedComments));
             return MostLikedFeatureObject.FriendsWhoLikesUserMost;
         }
 
