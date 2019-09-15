@@ -225,13 +225,13 @@ namespace DP_Ex03
         private void runCalculateFriendsUserLikesMost()
         {
             MostLikedFriendsViewer viewer = new MostLikedFriendsViewer(dataGridViewFriendsUserLikesMost, buttonCalculateFriendsUserLikesMost, m_FBDataHandler.MostLikedFeature);
-            viewer.populateGridView();
+            viewer.PopulateGridView();
         }
 
         private void runCalculateFriendsWhoLikeUserMost()
         {
             FriendsWhoLikesUserViewer viewer = new FriendsWhoLikesUserViewer(dataGridViewFriendsWhoLikeUserMost, buttonCalculateMostLikedByFriends, m_FBDataHandler.MostLikedFeature);
-            viewer.populateGridView();
+            viewer.PopulateGridView();
         }
 
         private void initializeUserData()

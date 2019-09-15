@@ -18,7 +18,7 @@ namespace DP_Ex03
             MostLikedFeatureObject = i_MostLikedFeatureObject;
         }
 
-        public void populateGridView()
+        public void PopulateGridView()
         {
             if (FetchButton.InvokeRequired)
             {
